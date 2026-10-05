@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f6efe4;
-  --foreground: #2a1614;
-  --surface: #fffaf3;
-  --muted: #6f564c;
-  --border: #e4d3c0;
-  --accent: #7a1d38;
-  --accent-foreground: #fff8ee;
-  --gold: #8d6424;
-  --gold-soft: #f3e2bc;
+  --background: #f6e7cf;
+  --foreground: #2c2118;
+  --surface: #fffdf8;
+  --muted: #7d6a58;
+  --border: #ead9c4;
+  --accent: #8a4518;
+  --accent-foreground: #fff8ef;
+  --gold: #a56b12;
+  --gold-soft: #f3e3bf;
 }
 
 @theme inline {
@@ -35,12 +35,12 @@ body {
 .shop-frame {
   background:
     radial-gradient(circle at 8% 0%, rgb(226 176 69 / 0.22), transparent 32%),
-    #6e1830;
-  color: #fff8ee;
+    #8a4518;
+  color: #fff8ef;
   border-radius: 2rem;
   box-shadow:
     inset 0 0 0 1px rgb(226 176 69 / 0.7),
-    inset 0 0 0 7px #6e1830,
+    inset 0 0 0 7px #8a4518,
     inset 0 0 0 8px rgb(226 176 69 / 0.45);
 }
 

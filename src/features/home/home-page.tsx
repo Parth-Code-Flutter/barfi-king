@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { categories, featuredSlugs, getCategory, getProduct } from "@/features/catalog/data";
-import { inr, priceLabel } from "@/features/catalog/format";
+import { priceLabel } from "@/features/catalog/format";
 import { useLanguage } from "@/features/i18n/language-provider";
 
 export function HomePage() {
@@ -15,7 +15,7 @@ export function HomePage() {
   return (
     <div>
       <section className="mx-auto max-w-6xl px-4 pt-5">
-        <div className="overflow-hidden rounded-[2rem] bg-[#6e1830] text-[#fff8ee]">
+        <div className="overflow-hidden rounded-[2rem] bg-accent text-accent-foreground">
           <div className="grid items-center gap-6 px-5 py-7 md:grid-cols-[auto_1fr] md:gap-10 md:px-10 md:py-10">
             <div className="relative mx-auto w-fit">
               <Image
@@ -24,27 +24,22 @@ export function HomePage() {
                 width={640}
                 height={640}
                 priority
-                className="h-56 w-56 rounded-full object-cover ring-[6px] ring-[#e2b045] md:h-72 md:w-72"
+                className="h-56 w-56 rounded-full object-cover ring-[6px] ring-gold-soft md:h-72 md:w-72"
               />
-              {thabdi?.price != null ? (
-                <p className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#fff6e8] px-4 py-2 text-lg font-extrabold text-[#7a1d38] shadow-md">
-                  {inr(thabdi.price)} · {t("perKg")}
-                </p>
-              ) : null}
             </div>
             <div className="pb-2 text-center md:pb-0 md:text-left">
-              <p className="text-sm font-extrabold text-[#f3e2bc]">
+              <p className="text-sm font-extrabold text-gold-soft">
                 {t("greeting")} · {t("since")}
               </p>
               <h1 className="mt-3 text-4xl font-extrabold leading-[1.12] md:text-6xl">{t("heroTitle")}</h1>
-              <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-[#f3e2bc] md:mx-0">{t("heroBody")}</p>
+              <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-gold-soft md:mx-0">{t("heroBody")}</p>
               <div className="mt-6 flex flex-wrap justify-center gap-3 md:justify-start">
-                <Link href="/shop" className="rounded-full bg-[#fff6e8] px-6 py-3 text-lg font-extrabold text-[#7a1d38]">
+                <Link href="/shop" className="rounded-full bg-gold-soft px-6 py-3 text-lg font-extrabold text-accent">
                   {t("seeGoods")}
                 </Link>
                 <a
                   href={`tel:${siteConfig.orderPhone.tel}`}
-                  className="rounded-full border border-[#f3e2bc] px-6 py-3 text-lg font-extrabold"
+                  className="rounded-full border border-gold-soft px-6 py-3 text-lg font-extrabold"
                 >
                   {t("call")} · {siteConfig.orderPhone.display}
                 </a>
@@ -64,7 +59,7 @@ export function HomePage() {
                 alt=""
                 width={320}
                 height={320}
-                className="mx-auto h-28 w-28 rounded-full object-cover ring-4 ring-[#f3e2bc] lg:h-auto lg:w-full"
+                className="mx-auto h-28 w-28 rounded-full object-cover ring-4 ring-surface lg:h-auto lg:w-full"
               />
               <span className="mt-2 block text-base font-extrabold leading-tight">{text(category.name)}</span>
             </Link>
@@ -72,7 +67,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl items-start gap-6 px-4 py-10 lg:grid-cols-[1.15fr_0.85fr]">
+      <section className="mx-auto grid max-w-6xl items-stretch gap-6 px-4 py-10 lg:grid-cols-2">
         <div className="rounded-[1.8rem] bg-surface p-5 ring-1 ring-border md:p-7">
           <h2 className="text-3xl font-extrabold">{t("famousTitle")}</h2>
           <p className="mt-1 text-muted">{t("famousHint")}</p>
@@ -99,17 +94,19 @@ export function HomePage() {
           </ul>
         </div>
 
-        <aside className="rounded-[1.8rem] bg-[#6e1830] p-5 text-[#fff8ee] md:p-6">
-          <p className="text-sm font-bold text-[#f3e2bc]">{t("menuCard")}</p>
+        <aside className="flex flex-col rounded-[1.8rem] bg-accent p-5 text-accent-foreground md:p-6">
+          <p className="text-sm font-bold text-gold-soft">{t("menuCard")}</p>
           <h2 className="mt-1 text-2xl font-extrabold leading-snug">{t("cardProof")}</h2>
-          <Image
-            src="/menus/peda.jpg"
-            alt={t("menuCard")}
-            width={720}
-            height={1280}
-            className="mt-4 h-auto w-full rounded-2xl"
-          />
-          <a href={`tel:${siteConfig.orderPhone.tel}`} className="mt-4 block text-3xl font-extrabold">
+          <div className="mt-4 flex flex-1 items-center justify-center">
+            <Image
+              src="/menus/peda.jpg"
+              alt={t("menuCard")}
+              width={720}
+              height={1280}
+              className="h-auto max-h-[28rem] w-auto max-w-full rounded-2xl"
+            />
+          </div>
+          <a href={`tel:${siteConfig.orderPhone.tel}`} className="mt-4 block text-center text-3xl font-extrabold">
             {siteConfig.orderPhone.display}
           </a>
         </aside>
