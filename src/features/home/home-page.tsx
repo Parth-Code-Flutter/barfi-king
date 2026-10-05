@@ -2,162 +2,117 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { siteConfig, whatsappHref } from "@/config/site";
-import { categories, featuredSlugs, getProduct } from "@/features/catalog/data";
-import { priceLabel } from "@/features/catalog/format";
+import { siteConfig } from "@/config/site";
+import { categories, featuredSlugs, getCategory, getProduct } from "@/features/catalog/data";
+import { inr, priceLabel } from "@/features/catalog/format";
 import { useLanguage } from "@/features/i18n/language-provider";
 
 export function HomePage() {
   const { lang, t, text } = useLanguage();
-  const featured = featuredSlugs
-    .map((slug) => getProduct(slug))
-    .filter((product) => product != null);
-  const hello = lang === "gu" ? "નમસ્તે, મારે મીઠાઈ જોઈએ છે." : "Hello, I would like to order sweets.";
-  const reasons = [
-    [t("trust1"), t("trust1b")],
-    [t("trust2"), t("trust2b")],
-    [t("trust3"), t("trust3b")],
-    [t("trust4"), t("trust4b")],
-  ];
+  const featured = featuredSlugs.map((slug) => getProduct(slug)).filter((product) => product != null);
+  const thabdi = getProduct("thabdi-peda");
 
   return (
     <div>
-      <section className="px-4 pt-4 md:pt-6">
-        <div className="shop-frame mx-auto grid max-w-6xl items-center gap-8 px-5 py-7 md:grid-cols-[1.15fr_0.85fr] md:px-10 md:py-10">
-          <div>
-            <p className="inline-flex rounded-full bg-white/10 px-3 py-1 text-sm font-bold text-gold-soft">
-              {t("greeting")} · {t("since")}
-            </p>
-            <h1 className="mt-4 text-4xl font-extrabold leading-[1.15] md:text-6xl">{t("heroTitle")}</h1>
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-gold-soft">{t("heroBody")}</p>
-            <p className="mt-3 max-w-xl text-base font-bold">{t("easeNote")}</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href="/shop"
-                className="rounded-full bg-gold-soft px-6 py-3 text-lg font-extrabold text-accent"
-              >
-                {t("seeGoods")}
-              </Link>
-              <a
-                href={`tel:${siteConfig.orderPhone.tel}`}
-                className="rounded-full border border-gold-soft px-6 py-3 text-lg font-extrabold"
-              >
-                {t("call")}
-              </a>
+      <section className="mx-auto max-w-6xl px-4 pt-5">
+        <div className="overflow-hidden rounded-[2rem] bg-[#6e1830] text-[#fff8ee]">
+          <div className="grid items-center gap-6 px-5 py-7 md:grid-cols-[auto_1fr] md:gap-10 md:px-10 md:py-10">
+            <div className="relative mx-auto w-fit">
+              <Image
+                src="/sweets/peda.jpg"
+                alt={thabdi ? text(thabdi.name) : ""}
+                width={640}
+                height={640}
+                priority
+                className="h-56 w-56 rounded-full object-cover ring-[6px] ring-[#e2b045] md:h-72 md:w-72"
+              />
+              {thabdi?.price != null ? (
+                <p className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#fff6e8] px-4 py-2 text-lg font-extrabold text-[#7a1d38] shadow-md">
+                  {inr(thabdi.price)} · {t("perKg")}
+                </p>
+              ) : null}
+            </div>
+            <div className="pb-2 text-center md:pb-0 md:text-left">
+              <p className="text-sm font-extrabold text-[#f3e2bc]">
+                {t("greeting")} · {t("since")}
+              </p>
+              <h1 className="mt-3 text-4xl font-extrabold leading-[1.12] md:text-6xl">{t("heroTitle")}</h1>
+              <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-[#f3e2bc] md:mx-0">{t("heroBody")}</p>
+              <div className="mt-6 flex flex-wrap justify-center gap-3 md:justify-start">
+                <Link href="/shop" className="rounded-full bg-[#fff6e8] px-6 py-3 text-lg font-extrabold text-[#7a1d38]">
+                  {t("seeGoods")}
+                </Link>
+                <a
+                  href={`tel:${siteConfig.orderPhone.tel}`}
+                  className="rounded-full border border-[#f3e2bc] px-6 py-3 text-lg font-extrabold"
+                >
+                  {t("call")} · {siteConfig.orderPhone.display}
+                </a>
+              </div>
             </div>
           </div>
-          <figure className="mx-auto w-full max-w-sm">
-            <div className="overflow-hidden rounded-[1.6rem] bg-surface shadow-[0_18px_40px_rgb(0_0_0/0.28)]">
-              <Image
-                src="/menus/peda.jpg"
-                alt={`${t("menuCard")}: ${text(categories[0].name)}`}
-                width={720}
-                height={1280}
-                priority
-                className="h-auto w-full"
-              />
-            </div>
-            <figcaption className="mt-3 text-center text-sm font-bold text-gold-soft">{t("cardProof")}</figcaption>
-          </figure>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-8">
-        <h2 className="text-3xl font-extrabold">{t("trustTitle")}</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {reasons.map(([title, body]) => (
-            <article key={title} className="rounded-3xl border border-gold bg-surface px-4 py-5">
-              <h3 className="text-2xl font-extrabold text-accent">{title}</h3>
-              <p className="mt-2 text-base leading-relaxed">{body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4">
+      <section className="mx-auto max-w-6xl px-4 pt-8">
         <h2 className="text-3xl font-extrabold">{t("categoriesTitle")}</h2>
-        <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
+        <div className="mt-4 flex gap-3 overflow-x-auto pb-2 lg:grid lg:grid-cols-8 lg:gap-4">
           {categories.map((category) => (
-            <Link
-              key={category.id}
-              href={`/shop?category=${category.id}`}
-              className="overflow-hidden rounded-3xl border border-border bg-surface hover:border-gold"
-            >
+            <Link key={category.id} href={`/shop?category=${category.id}`} className="w-28 shrink-0 text-center lg:w-auto">
               <Image
                 src={category.photo}
                 alt=""
-                width={480}
+                width={320}
                 height={320}
-                className="h-28 w-full object-cover"
+                className="mx-auto h-28 w-28 rounded-full object-cover ring-4 ring-[#f3e2bc] lg:h-auto lg:w-full"
               />
-              <span className="block px-4 py-4">
-                <span className="block text-2xl font-extrabold leading-tight">{text(category.name)}</span>
-                <span className="mt-2 block text-sm leading-relaxed text-muted">{text(category.promise)}</span>
-              </span>
+              <span className="mt-2 block text-base font-extrabold leading-tight">{text(category.name)}</span>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-6 px-4 py-8 md:grid-cols-[1.15fr_0.85fr]">
-        <div className="rounded-[2rem] border border-border bg-surface p-5 md:p-7">
-          <p className="text-sm font-bold text-gold">{t("menuCard")}</p>
-          <h2 className="mt-1 text-3xl font-extrabold">{t("famousTitle")}</h2>
-          <p className="mt-2 text-muted">{t("famousHint")}</p>
-          <ul className="mt-2">
-            {featured.map((product) => (
-              <li key={product.slug} className="border-b border-dashed border-border last:border-b-0">
-                <Link href={`/product/${product.slug}`} className="flex items-baseline justify-between gap-4 py-4">
-                  <span className="text-xl font-extrabold">{text(product.name)}</span>
-                  <span className="shrink-0 text-lg font-extrabold text-accent">
-                    {product.price == null ? t("askPrice") : priceLabel(product, lang)}
-                  </span>
-                </Link>
-              </li>
-            ))}
+      <section className="mx-auto grid max-w-6xl items-start gap-6 px-4 py-10 lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="rounded-[1.8rem] bg-surface p-5 ring-1 ring-border md:p-7">
+          <h2 className="text-3xl font-extrabold">{t("famousTitle")}</h2>
+          <p className="mt-1 text-muted">{t("famousHint")}</p>
+          <ul className="mt-3">
+            {featured.map((product) => {
+              const category = getCategory(product.category);
+              return (
+                <li key={product.slug} className="border-b border-dashed border-border last:border-b-0">
+                  <Link href={`/product/${product.slug}`} className="flex items-center gap-3 py-3">
+                    {category ? (
+                      <Image src={category.photo} alt="" width={96} height={96} className="h-14 w-14 shrink-0 rounded-full object-cover" />
+                    ) : null}
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-xl font-extrabold">{product.name.gu}</span>
+                      <span className="text-sm font-bold text-muted">{product.name.en}</span>
+                    </span>
+                    <span className="shrink-0 text-right text-lg font-extrabold text-accent">
+                      {product.price == null ? t("askPrice") : priceLabel(product, lang)}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
-        <div className="rounded-[2rem] bg-accent p-5 text-accent-foreground md:p-7">
-          <h2 className="text-3xl font-extrabold">{t("promiseTitle")}</h2>
-          <ul className="mt-4 grid gap-3">
-            {categories.slice(0, 4).map((category) => (
-              <li key={category.id} className="rounded-2xl bg-white/10 px-4 py-3">
-                <span className="block font-extrabold">{text(category.name)}</span>
-                <span className="text-sm text-gold-soft">{text(category.promise)}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-10">
-        <h2 className="text-3xl font-extrabold">{t("orderTitle")}</h2>
-        <p className="mt-2 text-lg font-bold text-accent">{t("sampleOrder")}</p>
-        <ol className="mt-4 grid gap-3 md:grid-cols-3">
-          {[t("orderStep1"), t("orderStep2"), t("orderStep3")].map((step, index) => (
-            <li key={step} className="rounded-3xl border border-border bg-surface p-5">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-accent text-sm font-extrabold text-accent-foreground">
-                {index + 1}
-              </span>
-              <p className="mt-3 text-2xl font-extrabold">{step}</p>
-            </li>
-          ))}
-        </ol>
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
-          <a href={`tel:${siteConfig.orderPhone.tel}`} className="rounded-3xl bg-accent px-5 py-5 text-accent-foreground">
-            <span className="block text-sm text-gold-soft">{t("shopPhone")} · {text(siteConfig.shop)}</span>
-            <span className="block text-3xl font-extrabold">{siteConfig.orderPhone.display}</span>
+        <aside className="rounded-[1.8rem] bg-[#6e1830] p-5 text-[#fff8ee] md:p-6">
+          <p className="text-sm font-bold text-[#f3e2bc]">{t("menuCard")}</p>
+          <h2 className="mt-1 text-2xl font-extrabold leading-snug">{t("cardProof")}</h2>
+          <Image
+            src="/menus/peda.jpg"
+            alt={t("menuCard")}
+            width={720}
+            height={1280}
+            className="mt-4 h-auto w-full rounded-2xl"
+          />
+          <a href={`tel:${siteConfig.orderPhone.tel}`} className="mt-4 block text-3xl font-extrabold">
+            {siteConfig.orderPhone.display}
           </a>
-          <a
-            href={whatsappHref(hello)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-3xl border border-accent bg-gold-soft px-5 py-5 text-accent"
-          >
-            <span className="block text-sm">{t("whatsapp")}</span>
-            <span className="block text-3xl font-extrabold">{t("orderThis")}</span>
-          </a>
-        </div>
+        </aside>
       </section>
     </div>
   );

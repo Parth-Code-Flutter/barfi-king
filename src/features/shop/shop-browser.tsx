@@ -76,18 +76,18 @@ export function ShopBrowser({ initialCategory }: { initialCategory?: string }) {
       </div>
 
       {selected ? (
-        <div className="mt-4 grid items-center gap-4 rounded-[2rem] border border-border bg-surface p-4 md:grid-cols-[180px_1fr]">
+        <div className="mt-4 flex items-center gap-4 rounded-[1.6rem] bg-surface p-3 ring-1 ring-border">
           <Image
-            src={selected.image}
-            alt={`${t("menuCard")}: ${text(selected.name)}`}
-            width={360}
-            height={640}
-            className="h-auto w-full rounded-2xl"
+            src={selected.photo}
+            alt=""
+            width={160}
+            height={160}
+            className="h-16 w-16 rounded-2xl object-cover"
           />
           <div>
-            <h2 className="text-3xl font-extrabold">{text(selected.name)}</h2>
-            <p className="mt-2 text-lg">{text(selected.promise)}</p>
-            {selected.id === "farsan" ? <p className="mt-3 font-bold text-gold">{t("farsanNote")}</p> : null}
+            <h2 className="text-2xl font-extrabold">{text(selected.name)}</h2>
+            <p className="text-sm leading-relaxed text-muted">{text(selected.promise)}</p>
+            {selected.id === "farsan" ? <p className="mt-1 text-sm font-bold text-gold">{t("farsanNote")}</p> : null}
           </div>
         </div>
       ) : null}
@@ -98,7 +98,7 @@ export function ShopBrowser({ initialCategory }: { initialCategory?: string }) {
       {items.length === 0 ? (
         <p className="mt-4 rounded-3xl bg-surface p-6 text-lg font-bold">{t("noResults")}</p>
       ) : (
-        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-3 grid grid-cols-1 gap-3 xl:grid-cols-2">
           {items.map((product) => (
             <ProductCard key={`${product.slug}-${audience}`} product={product} />
           ))}

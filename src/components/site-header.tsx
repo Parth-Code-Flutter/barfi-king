@@ -10,7 +10,6 @@ const links = [
   { href: "/", key: "home" },
   { href: "/shop", key: "shop" },
   { href: "/contact", key: "contact" },
-  { href: "/order", key: "order" },
 ] as const;
 
 export function SiteHeader() {
@@ -19,55 +18,44 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-30 border-b-4 border-gold bg-surface/95 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-border bg-surface/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
         <Link href="/" className="flex min-w-0 flex-1 items-center gap-3" onClick={() => setOpen(false)}>
-          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-accent text-lg font-extrabold text-gold-soft">
-            બા
-          </span>
+          <img src="/brand-icon.png" alt="" width={44} height={44} className="h-11 w-11 shrink-0 rounded-full" />
           <span className="min-w-0">
-            <span className="block truncate text-xl font-extrabold leading-tight text-accent">
-              {text(siteConfig.brand)}
-            </span>
+            <span className="block truncate text-xl font-extrabold leading-tight text-accent">{text(siteConfig.brand)}</span>
             <span className="block truncate text-sm text-muted">{text(siteConfig.shop)}</span>
           </span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex" aria-label={text(siteConfig.shop)}>
           {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="rounded-full px-4 py-2 text-base font-bold hover:bg-gold-soft"
-            >
+            <Link key={link.href} href={link.href} className="rounded-full px-4 py-2 text-base font-bold hover:bg-gold-soft">
               {t(link.key)}
-              {link.key === "order" && count > 0 ? ` ${count}` : ""}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2" role="group" aria-label={t("languageName")}>
-          <button
-            type="button"
-            className={`rounded-full px-3 py-2 text-sm font-bold ${lang === "gu" ? "bg-accent text-accent-foreground" : "bg-gold-soft text-accent"}`}
-            aria-pressed={lang === "gu"}
-            onClick={() => setLang("gu")}
-          >
-            ગુજરાતી
-          </button>
-          <button
-            type="button"
-            className={`rounded-full px-3 py-2 text-sm font-bold ${lang === "en" ? "bg-accent text-accent-foreground" : "bg-gold-soft text-accent"}`}
-            aria-pressed={lang === "en"}
-            onClick={() => setLang("en")}
-          >
-            English
-          </button>
-        </div>
+        <button
+          type="button"
+          className="rounded-full bg-gold-soft px-3 py-2 text-sm font-bold text-accent"
+          aria-label={t("languageName")}
+          onClick={() => setLang(lang === "gu" ? "en" : "gu")}
+        >
+          {lang === "gu" ? "English" : "ગુજરાતી"}
+        </button>
+
+        <Link
+          href="/order"
+          className="rounded-full bg-accent px-4 py-2 text-sm font-extrabold text-accent-foreground"
+        >
+          {t("order")}
+          {count > 0 ? ` ${count}` : ""}
+        </Link>
 
         <button
           type="button"
-          className="rounded-full border border-border px-3 py-2 text-sm font-bold md:hidden"
+          className="rounded-full px-2 py-2 text-sm font-bold md:hidden"
           aria-expanded={open}
           onClick={() => setOpen((value) => !value)}
         >

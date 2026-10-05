@@ -53,6 +53,7 @@ type OrderContextValue = {
   count: number;
   setAudience: (audience: Audience) => void;
   addLine: (line: Omit<OrderLine, "count">) => void;
+  setCount: (id: string, count: number) => void;
   clear: () => void;
 };
 
@@ -93,6 +94,15 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
     emit();
   }, []);
 
+  const setCount = useCallback((id: string, count: number) => {
+    const lines =
+      count < 1
+        ? state.lines.filter((item) => item.id !== id)
+        : state.lines.map((item) => (item.id === id ? { ...item, count } : item));
+    state = { ...state, lines };
+    emit();
+  }, []);
+
   const clear = useCallback(() => {
     state = { ...state, lines: [] };
     emit();
@@ -105,9 +115,10 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
       count: snapshot.lines.reduce((sum, line) => sum + line.count, 0),
       setAudience,
       addLine,
+      setCount,
       clear,
     }),
-    [snapshot, setAudience, addLine, clear],
+    [snapshot, setAudience, addLine, setCount, clear],
   );
 
   return <OrderContext.Provider value={value}>{children}</OrderContext.Provider>;

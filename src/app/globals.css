@@ -27,8 +27,6 @@
 
 body {
   background-color: var(--background);
-  background-image: radial-gradient(circle, rgb(122 29 56 / 0.09) 1.15px, transparent 1.25px);
-  background-size: 16px 16px;
   color: var(--foreground);
   font-family: var(--font-sans);
   font-weight: 500;

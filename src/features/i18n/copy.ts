@@ -7,6 +7,10 @@ export type Copy = {
   forHome: string;
   forShop: string;
   add: string;
+  added: string;
+  remove: string;
+  total: string;
+  viewOrder: string;
   order: string;
   yourOrder: string;
   emptyOrder: string;
@@ -81,6 +85,10 @@ export const copy: Record<Lang, Copy> = {
     forHome: "ઘર માટે",
     forShop: "દુકાન માટે",
     add: "ઉમેરો",
+    added: "ઉમેરાયું",
+    remove: "કાઢો",
+    total: "કુલ",
+    viewOrder: "ઓર્ડર જુઓ",
     order: "ઓર્ડર",
     yourOrder: "તમારો ઓર્ડર",
     emptyOrder: "હજુ કશું ઉમેર્યું નથી. મીઠાઈ પસંદ કરીને ઉમેરો.",
@@ -153,6 +161,10 @@ export const copy: Record<Lang, Copy> = {
     forHome: "For home",
     forShop: "For a shop",
     add: "Add",
+    added: "Added",
+    remove: "Remove",
+    total: "Total",
+    viewOrder: "See order",
     order: "Order",
     yourOrder: "Your order",
     emptyOrder: "Nothing added yet. Choose a sweet and add it.",
