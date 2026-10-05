@@ -6,7 +6,7 @@ import type { Product } from "@/features/catalog/types";
 import { useLanguage } from "@/features/i18n/language-provider";
 import { useOrder } from "@/features/order/order-provider";
 
-export function BuyBox({ product }: { product: Product }) {
+export function BuyBox({ product, inline = false }: { product: Product; inline?: boolean }) {
   const { lang, t } = useLanguage();
   const { audience, lines, addLine } = useOrder();
   const choices = portions(product, audience);
@@ -32,8 +32,8 @@ export function BuyBox({ product }: { product: Product }) {
   }
 
   return (
-    <div>
-      <div className="mt-3 flex flex-wrap gap-2">
+    <div className={inline ? "grid gap-2 sm:grid-cols-[1fr_auto] sm:items-center" : undefined}>
+      <div className="grid grid-cols-3 gap-2">
         {choices.map((item) => {
           const itemAmount = portionAmount(product, item.factor);
           const selected = item.id === choice?.id;
@@ -42,18 +42,18 @@ export function BuyBox({ product }: { product: Product }) {
               key={item.id}
               type="button"
               aria-pressed={selected}
-              className={`rounded-full px-3 py-2 text-sm font-extrabold ${selected ? "bg-accent text-accent-foreground" : "bg-background text-foreground ring-1 ring-border"}`}
+              className={`rounded-2xl px-2 py-2 text-center leading-tight ${selected ? "bg-accent text-accent-foreground" : "bg-background text-foreground ring-1 ring-border"}`}
               onClick={() => setChoiceId(item.id)}
             >
-              {item.label[lang]}
-              <span className="ml-1 font-bold opacity-80">{itemAmount == null ? "" : inr(itemAmount)}</span>
+              <span className="block text-sm font-extrabold">{item.label[lang]}</span>
+              <span className="mt-0.5 block text-xs font-bold">{itemAmount == null ? "—" : inr(itemAmount)}</span>
             </button>
           );
         })}
       </div>
       <button
         type="button"
-        className={`mt-3 w-full rounded-full px-4 py-3 text-base font-extrabold ${justAdded ? "bg-gold text-white" : "bg-accent text-accent-foreground"}`}
+        className={`rounded-full px-5 py-3 text-base font-extrabold ${inline ? "" : "mt-3 w-full"} ${justAdded ? "bg-gold text-white" : "bg-accent text-accent-foreground"}`}
         onClick={add}
       >
         {justAdded ? t("added") : t("add")}

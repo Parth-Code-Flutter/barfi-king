@@ -3,11 +3,10 @@ import type { Product } from "@/features/catalog/types";
 import { copy } from "@/features/i18n/copy";
 
 export function inr(amount: number) {
-  return new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0,
-  }).format(amount);
+  const body = Math.round(amount)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return `₹${body}`;
 }
 
 export type Portion = {

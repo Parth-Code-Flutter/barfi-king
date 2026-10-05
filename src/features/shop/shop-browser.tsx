@@ -98,7 +98,7 @@ export function ShopBrowser({ initialCategory }: { initialCategory?: string }) {
       {items.length === 0 ? (
         <p className="mt-4 rounded-3xl bg-surface p-6 text-lg font-bold">{t("noResults")}</p>
       ) : (
-        <div className="mt-3 grid grid-cols-1 gap-3 xl:grid-cols-2">
+        <div className="mt-8 grid gap-x-5 gap-y-16 pt-12 sm:grid-cols-2 xl:grid-cols-3">
           {items.map((product) => (
             <ProductCard key={`${product.slug}-${audience}`} product={product} />
           ))}
