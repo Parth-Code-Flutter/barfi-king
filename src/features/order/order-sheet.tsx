@@ -117,7 +117,11 @@ export function OrderSheet() {
                         {line.name[lang]}
                       </Link>
                       <p className="mt-1 text-sm font-bold text-muted">
-                        {line.qty[lang]} · {line.amount == null ? t("priceOnCall") : inr(line.amount)}
+                        {line.qty[lang]} · {line.amount == null
+                          ? t("priceOnCall")
+                          : lang === "gu"
+                            ? `${t("each")} ${inr(line.amount)}`
+                            : `${inr(line.amount)} ${t("each")}`}
                       </p>
                     </div>
                     <button
@@ -200,6 +204,9 @@ export function OrderSheet() {
               <WhatsAppIcon className="h-6 w-6" />
               {t("sendOrder")}
             </a>
+            <p className="mt-3 text-center text-xs font-bold leading-relaxed text-muted">
+              {t("whatsappReassurance")}
+            </p>
             <a
               href={`tel:${siteConfig.orderPhone.tel}`}
               className="mt-3 flex items-center justify-center gap-2 rounded-full bg-gold-soft px-5 py-3.5 text-lg font-extrabold text-accent"

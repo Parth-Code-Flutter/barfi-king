@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { CloseIcon, MenuIcon } from "@/components/icons";
@@ -21,11 +22,11 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-surface/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 py-3 md:gap-3">
-        <Link href="/" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
-          <img src="/brand-icon.png" alt="" width={44} height={44} className="h-11 w-11 shrink-0 rounded-full" />
+        <Link href="/" className="flex min-w-0 flex-1 items-center gap-2.5 md:flex-none md:gap-3" onClick={() => setOpen(false)}>
+          <Image src="/brand-icon.png" alt="" width={44} height={44} priority className="h-11 w-11 shrink-0 rounded-full" />
           <span className="min-w-0 leading-tight">
             <span className="block truncate text-lg font-extrabold text-accent">{text(siteConfig.brand)}</span>
-            <span className="block truncate text-xs text-muted">{text(siteConfig.shop)}</span>
+            <span className="hidden truncate text-xs text-muted sm:block">{text(siteConfig.shop)}</span>
           </span>
         </Link>
 
@@ -39,7 +40,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="ml-auto whitespace-nowrap rounded-full bg-gold-soft px-3 py-2 text-sm font-bold text-accent md:ml-0"
+          className="whitespace-nowrap rounded-full bg-gold-soft px-3 py-2 text-sm font-bold text-accent md:ml-0"
           aria-label={t("languageName")}
           onClick={() => setLang(lang === "gu" ? "en" : "gu")}
         >
@@ -48,7 +49,7 @@ export function SiteHeader() {
 
         <Link
           href="/order"
-          className="whitespace-nowrap rounded-full bg-accent px-4 py-2 text-sm font-extrabold text-accent-foreground"
+          className="hidden whitespace-nowrap rounded-full bg-accent px-4 py-2 text-sm font-extrabold text-accent-foreground md:inline-flex"
         >
           {t("order")}
           {count > 0 ? ` ${count}` : ""}

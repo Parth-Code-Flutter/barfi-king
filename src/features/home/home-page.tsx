@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { siteConfig } from "@/config/site";
+import { CheckIcon, PhoneIcon, WhatsAppIcon } from "@/components/icons";
+import { siteConfig, whatsappHref } from "@/config/site";
 import { categories, featuredSlugs, getCategory, getProduct } from "@/features/catalog/data";
 import { priceLabel } from "@/features/catalog/format";
 import { useLanguage } from "@/features/i18n/language-provider";
@@ -11,6 +12,13 @@ export function HomePage() {
   const { lang, t, text } = useLanguage();
   const featured = featuredSlugs.map((slug) => getProduct(slug)).filter((product) => product != null);
   const thabdi = getProduct("thabdi-peda");
+  const hello = lang === "gu" ? "નમસ્તે, મારે મીઠાઈનો ઓર્ડર કરવો છે." : "Hello, I would like to order sweets.";
+  const trust = [
+    [t("trust1"), t("trust1b")],
+    [t("trust2"), t("trust2b")],
+    [t("trust3"), t("trust3b")],
+    [t("trust4"), t("trust4b")],
+  ];
 
   return (
     <div>
@@ -33,17 +41,24 @@ export function HomePage() {
               </p>
               <h1 className="mt-3 text-4xl font-extrabold leading-[1.12] md:text-6xl">{t("heroTitle")}</h1>
               <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-gold-soft md:mx-0">{t("heroBody")}</p>
-              <div className="mt-6 flex flex-wrap justify-center gap-3 md:justify-start">
-                <Link href="/shop" className="rounded-full bg-gold-soft px-6 py-3 text-lg font-extrabold text-accent">
+              <div className="mt-6 grid gap-3 sm:grid-cols-2 md:flex md:flex-wrap md:justify-start">
+                <Link href="/shop" className="rounded-full bg-gold-soft px-6 py-3 text-center text-lg font-extrabold text-accent">
                   {t("seeGoods")}
                 </Link>
                 <a
-                  href={`tel:${siteConfig.orderPhone.tel}`}
-                  className="rounded-full border border-gold-soft px-6 py-3 text-lg font-extrabold"
+                  href={whatsappHref(hello)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 rounded-full bg-[#1e8e4e] px-6 py-3 text-lg font-extrabold text-white"
                 >
-                  {t("call")} · {siteConfig.orderPhone.display}
+                  <WhatsAppIcon className="h-5 w-5" />
+                  {t("whatsapp")}
                 </a>
               </div>
+              <a href={`tel:${siteConfig.orderPhone.tel}`} className="mt-4 inline-flex items-center gap-2 font-extrabold text-gold-soft">
+                <PhoneIcon className="h-5 w-5" />
+                {t("call")} · {siteConfig.orderPhone.display}
+              </a>
             </div>
           </div>
         </div>
@@ -51,19 +66,45 @@ export function HomePage() {
 
       <section className="mx-auto max-w-6xl px-4 pt-8">
         <h2 className="text-3xl font-extrabold">{t("categoriesTitle")}</h2>
-        <div className="mt-4 flex gap-3 overflow-x-auto pb-2 lg:grid lg:grid-cols-8 lg:gap-4">
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8 lg:gap-4">
           {categories.map((category) => (
-            <Link key={category.id} href={`/shop#${category.id}`} className="w-28 shrink-0 text-center lg:w-auto">
+            <Link
+              key={category.id}
+              href={`/shop#${category.id}`}
+              className="rounded-[1.4rem] bg-surface p-3 text-center ring-1 ring-border transition hover:-translate-y-0.5 hover:shadow-md"
+            >
               <Image
                 src={category.photo}
                 alt=""
                 width={320}
                 height={320}
-                className="mx-auto h-28 w-28 rounded-full object-cover ring-4 ring-surface lg:h-auto lg:w-full"
+                className="mx-auto aspect-square w-full rounded-full object-cover ring-4 ring-background"
               />
               <span className="mt-2 block text-base font-extrabold leading-tight">{text(category.name)}</span>
             </Link>
           ))}
+        </div>
+        <Link href="/shop" className="mt-5 block rounded-full bg-accent px-6 py-3.5 text-center text-lg font-extrabold text-accent-foreground sm:mx-auto sm:w-fit">
+          {t("seeGoods")} →
+        </Link>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pt-10">
+        <div className="rounded-[2rem] bg-surface p-5 ring-1 ring-border md:p-8">
+          <h2 className="text-3xl font-extrabold">{t("trustTitle")}</h2>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {trust.map(([title, body]) => (
+              <div key={title} className="flex gap-3 rounded-[1.4rem] bg-background p-4">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold-soft text-accent">
+                  <CheckIcon className="h-5 w-5" />
+                </span>
+                <span>
+                  <span className="block text-lg font-extrabold">{title}</span>
+                  <span className="mt-0.5 block text-sm leading-relaxed text-muted">{body}</span>
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

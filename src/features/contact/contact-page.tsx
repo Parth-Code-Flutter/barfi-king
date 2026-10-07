@@ -96,7 +96,7 @@ function PlaceCard({ place, role, tagline }: { place: Place; role: string; tagli
             className="flex items-center justify-center gap-2 rounded-full bg-accent px-4 py-3.5 text-lg font-extrabold text-accent-foreground"
           >
             <PhoneIcon className="h-5 w-5" />
-            {place.phone.display}
+            {t("call")} · {place.phone.display}
           </a>
           <a
             href={place.mapUrl}

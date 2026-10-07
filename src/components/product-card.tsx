@@ -2,35 +2,49 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { BuyBox } from "@/components/buy-box";
 import { getCategory } from "@/features/catalog/data";
+import { priceLabel } from "@/features/catalog/format";
 import type { Product } from "@/features/catalog/types";
 import { useLanguage } from "@/features/i18n/language-provider";
 
 export function ProductCard({ product }: { product: Product }) {
-  const { t } = useLanguage();
+  const { lang, t, text } = useLanguage();
+  const other = lang === "gu" ? "en" : "gu";
   const category = getCategory(product.category);
 
   return (
-    <article className="flex flex-col rounded-[1.8rem] bg-surface px-4 pb-4 pt-14 ring-1 ring-border">
-      <Link href={`/product/${product.slug}`} className="mx-auto -mt-24 block w-fit">
+    <article className="group flex overflow-hidden rounded-[1.7rem] bg-surface ring-1 ring-border transition hover:-translate-y-1 hover:shadow-xl sm:flex-col">
+      <Link href={`/product/${product.slug}`} className="relative block w-32 shrink-0 overflow-hidden bg-background sm:aspect-[4/3] sm:w-full">
         {category ? (
           <Image
             src={category.photo}
-            alt=""
-            width={240}
-            height={240}
-            className="h-28 w-28 rounded-full object-cover ring-[6px] ring-background"
+            alt={text(product.name)}
+            fill
+            sizes="(max-width: 640px) 128px, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition duration-300 group-hover:scale-105"
           />
         ) : null}
+        <span className="absolute left-2 top-2 hidden rounded-full bg-surface/95 px-2.5 py-1 text-xs font-extrabold text-accent backdrop-blur sm:block">
+          {category ? text(category.name) : t("shop")}
+        </span>
       </Link>
-      <Link href={`/product/${product.slug}`} className="mt-3 block text-center">
-        <span className="block text-2xl font-extrabold leading-tight">{product.name.gu}</span>
-        <span className="mt-1 block text-sm font-bold text-muted">{product.name.en}</span>
-      </Link>
-      {product.sugarFree ? <p className="mt-2 text-center text-sm font-bold text-gold">{t("sugarFree")}</p> : null}
-      <div className="mt-auto pt-3">
-        <BuyBox product={product} />
+
+      <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
+        <div className="flex flex-wrap items-start justify-between gap-2">
+          <Link href={`/product/${product.slug}`} className="min-w-0 hover:text-accent">
+            <span className="block text-xl font-extrabold leading-tight sm:text-2xl">{product.name[lang]}</span>
+            <span className="mt-1 block text-sm font-bold text-muted">{product.name[other]}</span>
+          </Link>
+          {product.sugarFree ? <span className="rounded-full bg-gold-soft px-2 py-1 text-xs font-extrabold text-gold">{t("sugarFree")}</span> : null}
+        </div>
+        <p className="mt-3 text-lg font-extrabold text-accent">{priceLabel(product, lang)}</p>
+        {product.packSize ? <p className="mt-0.5 text-sm font-bold text-muted">{text(product.packSize)}</p> : null}
+        <Link
+          href={`/product/${product.slug}`}
+          className="mt-auto pt-4 text-sm font-extrabold text-gold transition group-hover:text-accent"
+        >
+          {t("details")} →
+        </Link>
       </div>
     </article>
   );

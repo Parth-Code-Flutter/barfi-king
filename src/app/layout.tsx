@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans_Gujarati } from "next/font/google";
+import localFont from "next/font/local";
 import { AddedToast } from "@/components/added-toast";
 import { OrderDock } from "@/components/order-dock";
 import { SiteFooter } from "@/components/site-footer";
@@ -8,10 +8,13 @@ import { LanguageProvider } from "@/features/i18n/language-provider";
 import { OrderProvider } from "@/features/order/order-provider";
 import "./globals.css";
 
-const gujarati = Noto_Sans_Gujarati({
-  subsets: ["gujarati", "latin"],
-  weight: ["500", "600", "700", "800"],
+const gujarati = localFont({
+  src: [
+    { path: "./fonts/noto-sans-gujarati.woff2", weight: "500 800" },
+    { path: "./fonts/noto-sans-latin.woff2", weight: "500 800" },
+  ],
   variable: "--font-gujarati",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
