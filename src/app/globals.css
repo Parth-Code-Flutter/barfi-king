@@ -32,16 +32,50 @@ body {
   font-weight: 500;
 }
 
-.shop-frame {
+/* Kesar tray: the brown panel with a thin gold inner border, like the shop's rate card. */
+.tray {
   background:
-    radial-gradient(circle at 8% 0%, rgb(226 176 69 / 0.22), transparent 32%),
-    #8a4518;
-  color: #fff8ef;
-  border-radius: 2rem;
+    radial-gradient(circle at 12% 0%, rgb(226 176 69 / 0.28), transparent 45%),
+    var(--accent);
+  color: var(--accent-foreground);
   box-shadow:
     inset 0 0 0 1px rgb(226 176 69 / 0.7),
-    inset 0 0 0 7px #8a4518,
+    inset 0 0 0 7px var(--accent),
     inset 0 0 0 8px rgb(226 176 69 / 0.45);
+}
+
+/* Dotted leader between an item name and its price, as on a printed menu. */
+.leader {
+  flex: 1;
+  min-width: 1.5rem;
+  border-bottom: 2px dotted var(--border);
+  transform: translateY(-0.35em);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+.toast-in {
+  animation: toast-in 180ms ease-out;
+}
+
+@keyframes bump {
+  40% {
+    transform: scale(1.25);
+  }
+}
+.bump {
+  animation: bump 260ms ease-out;
 }
 
 :focus-visible {
@@ -55,5 +89,6 @@ body {
   *::after {
     scroll-behavior: auto !important;
     transition: none !important;
+    animation: none !important;
   }
 }

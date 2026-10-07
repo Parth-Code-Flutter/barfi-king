@@ -19,7 +19,7 @@ export function ProductView({ product }: { product: Product }) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6">
-      <Link href={`/shop?category=${product.category}`} className="text-sm font-bold text-gold">
+      <Link href={`/shop#${product.category}`} className="text-sm font-bold text-gold">
         {t("backToShop")}
       </Link>
       <div className="mt-4 grid items-start gap-6 md:grid-cols-[320px_1fr]">

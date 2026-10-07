@@ -63,7 +63,6 @@ export type Copy = {
   weightHint: string;
   packHint: string;
   contactTitle: string;
-  contactBody: string;
   sampleOrder: string;
   openMenu: string;
   closeMenu: string;
@@ -75,6 +74,29 @@ export type Copy = {
   madeBy: string;
   price: string;
   sugarFree: string;
+  homeHint: string;
+  shopHint: string;
+  tapToAdd: string;
+  addedToOrder: string;
+  undo: string;
+  addMore: string;
+  oneLess: string;
+  oneMore: string;
+  priceOnCall: string;
+  billTitle: string;
+  itemsTotal: string;
+  unknownNote: string;
+  messagePreview: string;
+  clearConfirm: string;
+  clearSearch: string;
+  contactLead: string;
+  callShop: string;
+  whatsappChat: string;
+  directions: string;
+  mapTitle: string;
+  shopRole: string;
+  makerRole: string;
+  makerTagline: string;
 };
 
 export const copy: Record<Lang, Copy> = {
@@ -141,7 +163,6 @@ export const copy: Record<Lang, Copy> = {
     weightHint: "500 ગ્રામ અથવા 1 કિલો",
     packHint: "એક પેકેટ",
     contactTitle: "સંપર્ક",
-    contactBody: "ગુજરાતીમાં વાત કરો. વાનગીનું નામ અને કેટલું જોઈએ એટલું કહેવું.",
     sampleOrder: "ઉદાહરણ: થાબડી પેંડા, 500 ગ્રામ",
     openMenu: "મેનુ ખોલો",
     closeMenu: "મેનુ બંધ કરો",
@@ -153,6 +174,29 @@ export const copy: Record<Lang, Copy> = {
     madeBy: "બનાવનાર બાર્ફી કિંગ",
     price: "ભાવ",
     sugarFree: "સ્યુગર લેસ",
+    homeHint: "250 ગ્રામ, 500 ગ્રામ, 1 કિલો",
+    shopHint: "1, 2 અને 5 કિલો",
+    tapToAdd: "વજન પર દબાવો, એટલે ઓર્ડરમાં ઉમેરાઈ જશે.",
+    addedToOrder: "ઓર્ડરમાં ઉમેર્યું",
+    undo: "પાછું",
+    addMore: "હજુ ઉમેરો",
+    oneLess: "એક ઓછું",
+    oneMore: "એક વધારે",
+    priceOnCall: "ભાવ ફોન પર",
+    billTitle: "ઓર્ડરનો હિસાબ",
+    itemsTotal: "વાનગીનો સરવાળો",
+    unknownNote: "ફરસાણનો ભાવ ફોન પર કહેશું. એ આ કુલમાં નથી.",
+    messagePreview: "વોટ્સએપમાં આ સંદેશ જશે",
+    clearConfirm: "ખાતરી છે? ફરી દબાવો",
+    clearSearch: "શોધ ખાલી કરો",
+    contactLead: "ફોન કરો, વોટ્સએપ કરો કે સીધા દુકાને આવો. વાત ગુજરાતીમાં.",
+    callShop: "દુકાને ફોન કરો",
+    whatsappChat: "વોટ્સએપ પર લખો",
+    directions: "રસ્તો જુઓ",
+    mapTitle: "નકશો",
+    shopRole: "દુકાન · અહીંથી ખરીદો",
+    makerRole: "બનાવનાર",
+    makerTagline: "અસલી સ્વાદ સૌરાષ્ટ્રનો",
   },
   en: {
     home: "Home",
@@ -217,7 +261,6 @@ export const copy: Record<Lang, Copy> = {
     weightHint: "500 grams or 1 kg",
     packHint: "One packet",
     contactTitle: "Contact",
-    contactBody: "Speak in Gujarati or English. Say the item name and how much you want.",
     sampleOrder: "Example: Thabdi peda, 500 grams",
     openMenu: "Open menu",
     closeMenu: "Close menu",
@@ -229,5 +272,28 @@ export const copy: Record<Lang, Copy> = {
     madeBy: "Made by Barfi King",
     price: "Price",
     sugarFree: "Sugar free",
+    homeHint: "250 gram, 500 gram, 1 kg",
+    shopHint: "1, 2 and 5 kg",
+    tapToAdd: "Tap a weight to add it to your order.",
+    addedToOrder: "Added to order",
+    undo: "Undo",
+    addMore: "Add more",
+    oneLess: "One less",
+    oneMore: "One more",
+    priceOnCall: "Price on call",
+    billTitle: "Order summary",
+    itemsTotal: "Items total",
+    unknownNote: "We will tell the farsan price on the phone. It is not in this total.",
+    messagePreview: "This message goes on WhatsApp",
+    clearConfirm: "Sure? Tap again",
+    clearSearch: "Clear search",
+    contactLead: "Call, send a WhatsApp, or come to the shop. We speak Gujarati and English.",
+    callShop: "Call the shop",
+    whatsappChat: "Message on WhatsApp",
+    directions: "Get directions",
+    mapTitle: "Map",
+    shopRole: "Shop · buy here",
+    makerRole: "Made by",
+    makerTagline: "The real taste of Saurashtra",
   },
 };

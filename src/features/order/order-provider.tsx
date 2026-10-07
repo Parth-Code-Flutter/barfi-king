@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useState,
   useSyncExternalStore,
 } from "react";
 import type { LocaleText } from "@/features/catalog/types";
@@ -47,13 +48,23 @@ function readState() {
   return hydrated ? state : EMPTY;
 }
 
+export type LastAdded = {
+  id: string;
+  name: LocaleText;
+  qty: LocaleText;
+  stamp: number;
+};
+
 type OrderContextValue = {
   audience: Audience;
   lines: OrderLine[];
   count: number;
+  lastAdded: LastAdded | null;
   setAudience: (audience: Audience) => void;
   addLine: (line: Omit<OrderLine, "count">) => void;
   setCount: (id: string, count: number) => void;
+  undoLast: () => void;
+  dismissLast: () => void;
   clear: () => void;
 };
 
@@ -61,6 +72,7 @@ const OrderContext = createContext<OrderContextValue | null>(null);
 
 export function OrderProvider({ children }: { children: React.ReactNode }) {
   const snapshot = useSyncExternalStore(subscribe, readState, () => EMPTY);
+  const [lastAdded, setLastAdded] = useState<LastAdded | null>(null);
 
   useEffect(() => {
     if (state.lines.length === 0) {
@@ -92,6 +104,7 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
       : [...state.lines, { ...line, count: 1 }];
     state = { ...state, lines };
     emit();
+    setLastAdded({ id: line.id, name: line.name, qty: line.qty, stamp: Date.now() });
   }, []);
 
   const setCount = useCallback((id: string, count: number) => {
@@ -103,9 +116,20 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
     emit();
   }, []);
 
+  const undoLast = useCallback(() => {
+    if (lastAdded) {
+      const line = state.lines.find((item) => item.id === lastAdded.id);
+      if (line) setCount(line.id, line.count - 1);
+    }
+    setLastAdded(null);
+  }, [lastAdded, setCount]);
+
+  const dismissLast = useCallback(() => setLastAdded(null), []);
+
   const clear = useCallback(() => {
     state = { ...state, lines: [] };
     emit();
+    setLastAdded(null);
   }, []);
 
   const value = useMemo<OrderContextValue>(
@@ -113,12 +137,15 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
       audience: snapshot.audience,
       lines: snapshot.lines,
       count: snapshot.lines.reduce((sum, line) => sum + line.count, 0),
+      lastAdded,
       setAudience,
       addLine,
       setCount,
+      undoLast,
+      dismissLast,
       clear,
     }),
-    [snapshot, setAudience, addLine, setCount, clear],
+    [snapshot, lastAdded, setAudience, addLine, setCount, undoLast, dismissLast, clear],
   );
 
   return <OrderContext.Provider value={value}>{children}</OrderContext.Provider>;

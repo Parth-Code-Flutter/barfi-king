@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Gujarati } from "next/font/google";
+import { AddedToast } from "@/components/added-toast";
 import { OrderDock } from "@/components/order-dock";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <main className="flex-1">{children}</main>
             <SiteFooter />
             <OrderDock />
+            <AddedToast />
           </OrderProvider>
         </LanguageProvider>
       </body>

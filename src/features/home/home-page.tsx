@@ -53,7 +53,7 @@ export function HomePage() {
         <h2 className="text-3xl font-extrabold">{t("categoriesTitle")}</h2>
         <div className="mt-4 flex gap-3 overflow-x-auto pb-2 lg:grid lg:grid-cols-8 lg:gap-4">
           {categories.map((category) => (
-            <Link key={category.id} href={`/shop?category=${category.id}`} className="w-28 shrink-0 text-center lg:w-auto">
+            <Link key={category.id} href={`/shop#${category.id}`} className="w-28 shrink-0 text-center lg:w-auto">
               <Image
                 src={category.photo}
                 alt=""

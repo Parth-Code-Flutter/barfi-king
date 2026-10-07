@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
 import { useLanguage } from "@/features/i18n/language-provider";
 import { useOrder } from "@/features/order/order-provider";
@@ -8,6 +9,10 @@ import { useOrder } from "@/features/order/order-provider";
 export function OrderDock() {
   const { t } = useLanguage();
   const { count } = useOrder();
+  const pathname = usePathname();
+
+  // The order page has its own send bar.
+  if (pathname === "/order") return null;
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-surface p-3 md:hidden">

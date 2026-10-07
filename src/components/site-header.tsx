@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { CloseIcon, MenuIcon } from "@/components/icons";
 import { siteConfig } from "@/config/site";
 import { useLanguage } from "@/features/i18n/language-provider";
 import { useOrder } from "@/features/order/order-provider";
@@ -19,7 +20,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-surface/95 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
+      <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 py-3 md:gap-3">
         <Link href="/" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
           <img src="/brand-icon.png" alt="" width={44} height={44} className="h-11 w-11 shrink-0 rounded-full" />
           <span className="min-w-0 leading-tight">
@@ -38,7 +39,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="ml-auto rounded-full bg-gold-soft px-3 py-2 text-sm font-bold text-accent md:ml-0"
+          className="ml-auto whitespace-nowrap rounded-full bg-gold-soft px-3 py-2 text-sm font-bold text-accent md:ml-0"
           aria-label={t("languageName")}
           onClick={() => setLang(lang === "gu" ? "en" : "gu")}
         >
@@ -47,7 +48,7 @@ export function SiteHeader() {
 
         <Link
           href="/order"
-          className="rounded-full bg-accent px-4 py-2 text-sm font-extrabold text-accent-foreground"
+          className="whitespace-nowrap rounded-full bg-accent px-4 py-2 text-sm font-extrabold text-accent-foreground"
         >
           {t("order")}
           {count > 0 ? ` ${count}` : ""}
@@ -55,11 +56,12 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="rounded-full px-2 py-2 text-sm font-bold md:hidden"
+          className="-mr-1 grid h-10 w-10 shrink-0 place-items-center rounded-full text-accent hover:bg-gold-soft md:hidden"
           aria-expanded={open}
+          aria-label={open ? t("closeMenu") : t("openMenu")}
           onClick={() => setOpen((value) => !value)}
         >
-          {open ? t("closeMenu") : t("openMenu")}
+          {open ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
         </button>
       </div>
 
