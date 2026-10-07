@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { CloseIcon, MenuIcon } from "@/components/icons";
-import { siteConfig } from "@/config/site";
+import { CloseIcon, MenuIcon, WhatsAppIcon } from "@/components/icons";
+import { siteConfig, whatsappHref } from "@/config/site";
 import { useLanguage } from "@/features/i18n/language-provider";
 import { useOrder } from "@/features/order/order-provider";
 
@@ -21,6 +21,15 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-surface/95 backdrop-blur">
+      <div className="announcement-bar overflow-hidden bg-[#4f1f13] py-1.5 text-[#f7d77d]">
+        <div className="announcement-track flex w-max items-center gap-9 whitespace-nowrap text-xs font-extrabold tracking-wide">
+          {[0, 1].map((group) => (
+            <span key={group} className="flex items-center gap-9" aria-hidden={group === 1}>
+              <span>{t("announcementFresh")}</span><span>✦</span><span>{t("announcementOrder")}</span><span>✦</span><span>{t("announcementJunagadh")}</span><span>✦</span>
+            </span>
+          ))}
+        </div>
+      </div>
       <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 py-3 md:gap-3">
         <Link href="/" className="flex min-w-0 flex-1 items-center gap-2.5 md:flex-none md:gap-3" onClick={() => setOpen(false)}>
           <Image src="/brand-icon.png" alt="" width={44} height={44} priority className="h-11 w-11 shrink-0 rounded-full" />
@@ -54,6 +63,16 @@ export function SiteHeader() {
           {t("order")}
           {count > 0 ? ` ${count}` : ""}
         </Link>
+
+        <a
+          href={whatsappHref(lang === "gu" ? "નમસ્તે, મારે મીઠાઈનો ઓર્ડર કરવો છે." : "Hello, I would like to order sweets.")}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t("whatsappOrder")}
+          className="hidden h-10 w-10 shrink-0 place-items-center rounded-full bg-[#1e8e4e] text-white sm:grid md:hidden"
+        >
+          <WhatsAppIcon className="h-5 w-5" />
+        </a>
 
         <button
           type="button"

@@ -32,6 +32,40 @@ body {
   font-weight: 500;
 }
 
+.hero-panel {
+  background:
+    radial-gradient(circle at 82% 8%, rgb(247 215 125 / 0.2), transparent 30%),
+    radial-gradient(circle at 5% 90%, rgb(213 116 47 / 0.22), transparent 34%),
+    linear-gradient(135deg, #3f180f 0%, #7b3318 52%, #9b4b1c 100%);
+}
+
+.hero-panel::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  opacity: 0.1;
+  background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.visit-panel {
+  background: radial-gradient(circle at 12% 10%, rgb(247 215 125 / 0.18), transparent 32%), linear-gradient(115deg, #431b11, #7a3218);
+}
+
+.section-kicker {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@keyframes announcement-scroll {
+  to { transform: translateX(-50%); }
+}
+
+.announcement-track { animation: announcement-scroll 24s linear infinite; }
+
 /* Kesar tray: the brown panel with a thin gold inner border, like the shop's rate card. */
 .tray {
   background:

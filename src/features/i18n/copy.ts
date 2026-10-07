@@ -99,6 +99,31 @@ export type Copy = {
   makerTagline: string;
   each: string;
   whatsappReassurance: string;
+  junagadhSince: string;
+  exploreCollection: string;
+  whatsappOrder: string;
+  noOnlinePayment: string;
+  heroImageAlt: string;
+  signatureThabdi: string;
+  madeFresh: string;
+  varieties: string;
+  directHelp: string;
+  browseAtEase: string;
+  visitUs: string;
+  junagadh: string;
+  chooseFavourite: string;
+  seeAll: string;
+  customerFavourites: string;
+  signature: string;
+  heritageSince: string;
+  ourHeritage: string;
+  heritageTitle: string;
+  heritageBody: string;
+  viewFullMenu: string;
+  knowOurStore: string;
+  announcementFresh: string;
+  announcementOrder: string;
+  announcementJunagadh: string;
 };
 
 export const copy: Record<Lang, Copy> = {
@@ -201,6 +226,31 @@ export const copy: Record<Lang, Copy> = {
     makerTagline: "અસલી સ્વાદ સૌરાષ્ટ્રનો",
     each: "દરેકનો ભાવ",
     whatsappReassurance: "વોટ્સએપ પર મોકલ્યા પછી દુકાન ઓર્ડરની ખાતરી કરશે. અહીં કોઈ ઓનલાઇન ચુકવણી નથી.",
+    junagadhSince: "જૂનાગઢ · 1955થી પરંપરાગત સ્વાદ",
+    exploreCollection: "આજની મીઠાઈ જુઓ",
+    whatsappOrder: "વોટ્સએપથી ઓર્ડર",
+    noOnlinePayment: "પહેલાં ભાવ જુઓ · પછી દુકાન સાથે ઓર્ડર પાકો કરો",
+    heroImageAlt: "બાર્ફી કિંગની પ્રખ્યાત થાબડી પેંડા",
+    signatureThabdi: "લુણાણાની પ્રખ્યાત થાબડી",
+    madeFresh: "પરંપરાગત સ્વાદ, દિલથી બનાવેલું",
+    varieties: "વાનગીઓ",
+    directHelp: "ઓર્ડરમાં મદદ",
+    browseAtEase: "સરળ રીતે પસંદ કરો",
+    visitUs: "દુકાને આવો",
+    junagadh: "જૂનાગઢ, ગુજરાત",
+    chooseFavourite: "તમારી મનપસંદ પસંદ કરો",
+    seeAll: "બધું જુઓ",
+    customerFavourites: "ગ્રાહકોની મનપસંદ",
+    signature: "ખાસ વાનગી",
+    heritageSince: "થી સ્વાદની પરંપરા",
+    ourHeritage: "અમારી પરંપરા",
+    heritageTitle: "સૌરાષ્ટ્રનો અસલી સ્વાદ, પેઢીઓથી સાચવેલો",
+    heritageBody: "જલારામ સ્વીટ્સ અને બાર્ફી કિંગમાં મીઠાઈ પસંદ કરવી હવે દુકાન જેટલી જ સરળ છે. ભાવ સ્પષ્ટ જુઓ, વજન પસંદ કરો અને ફોન કે વોટ્સએપ પર સીધો ઓર્ડર પાકો કરો.",
+    viewFullMenu: "સંપૂર્ણ મેનુ જુઓ",
+    knowOurStore: "દુકાનની માહિતી",
+    announcementFresh: "1955થી પરંપરાગત સ્વાદ",
+    announcementOrder: "ફોન અને વોટ્સએપથી સરળ ઓર્ડર",
+    announcementJunagadh: "જૂનાગઢમાં આપનું સ્વાગત છે",
   },
   en: {
     home: "Home",
@@ -301,5 +351,30 @@ export const copy: Record<Lang, Copy> = {
     makerTagline: "The real taste of Saurashtra",
     each: "each",
     whatsappReassurance: "The shop will confirm your order after you send it on WhatsApp. No online payment is taken here.",
+    junagadhSince: "Junagadh · Traditional taste since 1955",
+    exploreCollection: "Explore today’s sweets",
+    whatsappOrder: "Order on WhatsApp",
+    noOnlinePayment: "See prices first · confirm directly with the shop",
+    heroImageAlt: "Barfi King’s signature thabdi peda",
+    signatureThabdi: "Lunana’s famous thabdi",
+    madeFresh: "Traditional taste, made with care",
+    varieties: "varieties",
+    directHelp: "Help with orders",
+    browseAtEase: "Choose with ease",
+    visitUs: "Visit our shop",
+    junagadh: "Junagadh, Gujarat",
+    chooseFavourite: "Choose your favourite",
+    seeAll: "See everything",
+    customerFavourites: "Customer favourites",
+    signature: "Signature",
+    heritageSince: "A tradition of taste",
+    ourHeritage: "Our heritage",
+    heritageTitle: "The true taste of Saurashtra, preserved for generations",
+    heritageBody: "Choosing sweets from Jalaram Sweets and Barfi King is now as easy online as it is in the shop. See clear prices, choose a weight, and confirm directly by phone or WhatsApp.",
+    viewFullMenu: "View the full menu",
+    knowOurStore: "Know our store",
+    announcementFresh: "Traditional taste since 1955",
+    announcementOrder: "Easy ordering by phone and WhatsApp",
+    announcementJunagadh: "Welcome to Junagadh",
   },
 };
