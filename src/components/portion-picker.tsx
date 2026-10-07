@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { MinusIcon, PlusIcon } from "@/components/icons";
 import { inr, portionAmount, portions } from "@/features/catalog/format";
 import type { Product } from "@/features/catalog/types";
@@ -8,11 +9,26 @@ import { useOrder } from "@/features/order/order-provider";
 
 export function PortionPicker({ product }: { product: Product }) {
   const { lang, t, text } = useLanguage();
-  const { audience, lines, addLine, setCount } = useOrder();
+  const { lines, addLine, setCount } = useOrder();
+  const [customOpen, setCustomOpen] = useState(false);
+  const [customValue, setCustomValue] = useState(product.unit === "kg" ? 750 : 3);
+
+  const customFactor = product.unit === "kg" ? customValue / 1000 : customValue;
+  const customAmount = portionAmount(product, customFactor);
+  const customId = `${product.slug}-custom-${customValue}${product.unit === "kg" ? "g" : "pack"}`;
+  const customLabel = product.unit === "kg"
+    ? { gu: `${customValue} ગ્રામ`, en: `${customValue} grams` }
+    : { gu: `${customValue} પેકેટ`, en: `${customValue} packets` };
+
+  function addCustom() {
+    const minimum = product.unit === "kg" ? 50 : 1;
+    if (!Number.isFinite(customValue) || customValue < minimum) return;
+    addLine({ id: customId, slug: product.slug, name: product.name, qty: customLabel, amount: customAmount });
+  }
 
   return (
     <div className="grid grid-cols-3 gap-2">
-      {portions(product, audience).map((portion) => {
+      {portions(product, "home").map((portion) => {
         const id = `${product.slug}-${portion.id}`;
         const amount = portionAmount(product, portion.factor);
         const inOrder = lines.find((line) => line.id === id)?.count ?? 0;
@@ -67,6 +83,35 @@ export function PortionPicker({ product }: { product: Product }) {
           </button>
         );
       })}
+      <button
+        type="button"
+        onClick={() => setCustomOpen((value) => !value)}
+        aria-expanded={customOpen}
+        className="col-span-3 flex items-center justify-center gap-2 rounded-xl border border-dashed border-[#cf9dab] bg-rose-soft/60 px-3 py-2 text-sm font-extrabold text-rose-deep transition hover:bg-rose-soft"
+      >
+        <PlusIcon className="h-4 w-4" />{t("customQuantity")}
+      </button>
+      {customOpen ? (
+        <div className="col-span-3 grid grid-cols-[1fr_auto] gap-2 rounded-2xl bg-background p-2 ring-1 ring-border">
+          <label className="flex min-w-0 items-center rounded-xl bg-surface px-3 ring-1 ring-border focus-within:ring-2 focus-within:ring-rose">
+            <input
+              type="number"
+              min={product.unit === "kg" ? 50 : 1}
+              max={product.unit === "kg" ? 10000 : 100}
+              step={product.unit === "kg" ? 50 : 1}
+              value={customValue}
+              onChange={(event) => setCustomValue(Number(event.target.value))}
+              className="min-w-0 flex-1 bg-transparent py-2 font-extrabold outline-none"
+              aria-label={t("customQuantity")}
+            />
+            <span className="text-xs font-bold text-muted">{product.unit === "kg" ? t("grams") : t("packets")}</span>
+          </label>
+          <button type="button" onClick={addCustom} className="rounded-xl bg-rose-deep px-4 py-2 text-sm font-extrabold text-white">
+            <span className="block">{t("add")}</span>
+            <span className="block text-[11px] text-white/75">{customAmount == null ? t("priceOnCall") : inr(customAmount)}</span>
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }

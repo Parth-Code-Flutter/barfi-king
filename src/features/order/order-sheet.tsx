@@ -9,23 +9,16 @@ import { categories, getCategory, getProduct } from "@/features/catalog/data";
 import { inr } from "@/features/catalog/format";
 import type { Lang } from "@/features/i18n/copy";
 import { useLanguage } from "@/features/i18n/language-provider";
-import { useOrder, type Audience, type OrderLine } from "@/features/order/order-provider";
+import { useOrder, type OrderLine } from "@/features/order/order-provider";
 
 function linePhoto(line: OrderLine) {
   const product = getProduct(line.slug);
   return product ? getCategory(product.category)?.photo : undefined;
 }
 
-function buildMessage(lines: OrderLine[], audience: Audience, lang: Lang, total: number, hasUnknown: boolean) {
+function buildMessage(lines: OrderLine[], lang: Lang, total: number, hasUnknown: boolean) {
   const gu = lang === "gu";
-  const intro =
-    audience === "trade"
-      ? gu
-        ? "નમસ્તે, દુકાન માટે મારો ઓર્ડર:"
-        : "Hello, my order for a shop:"
-      : gu
-        ? "નમસ્તે, મારો ઓર્ડર:"
-        : "Hello, my order:";
+  const intro = gu ? "નમસ્તે, મારો ઓર્ડર:" : "Hello, my order:";
   const body = lines.map((line, index) => {
     const times = line.count > 1 ? ` × ${line.count}` : "";
     const price = line.amount == null ? "" : ` — ${inr(line.amount * line.count)}`;
@@ -38,7 +31,7 @@ function buildMessage(lines: OrderLine[], audience: Audience, lang: Lang, total:
 
 export function OrderSheet() {
   const { lang, t, text } = useLanguage();
-  const { audience, lines, count, setCount, clear } = useOrder();
+  const { lines, count, setCount, clear } = useOrder();
   const [confirming, setConfirming] = useState(false);
 
   useEffect(() => {
@@ -79,16 +72,16 @@ export function OrderSheet() {
   const priced = lines.filter((line) => line.amount != null);
   const unknown = lines.filter((line) => line.amount == null);
   const total = priced.reduce((sum, line) => sum + (line.amount ?? 0) * line.count, 0);
-  const message = buildMessage(lines, audience, lang, total, unknown.length > 0);
+  const message = buildMessage(lines, lang, total, unknown.length > 0);
   const sendHref = whatsappHref(message);
 
   return (
     <div className="mx-auto max-w-6xl px-4 pb-10 pt-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
+      <div className="flex flex-wrap items-end justify-between gap-3 rounded-[1.7rem] bg-surface/80 p-4 shadow-sm ring-1 ring-border md:p-5">
         <div>
           <h1 className="text-4xl font-extrabold md:text-5xl">{t("yourOrder")}</h1>
           <p className="mt-1 text-lg font-bold text-muted">
-            {count} {t("results")} · {audience === "trade" ? t("forShop") : t("forHome")}
+            {count} {t("results")}
           </p>
         </div>
         <Link href="/shop" className="flex items-center gap-1.5 rounded-full bg-surface px-4 py-2.5 font-extrabold text-accent ring-1 ring-border">
@@ -98,7 +91,7 @@ export function OrderSheet() {
       </div>
 
       <div className="mt-6 grid items-start gap-6 lg:grid-cols-[1fr_24rem]">
-        <ul className="overflow-clip rounded-[2rem] bg-surface ring-1 ring-border">
+        <ul className="overflow-clip rounded-[2rem] bg-surface shadow-lg shadow-[#7b2a3a]/5 ring-1 ring-border">
           {lines.map((line) => {
             const photo = linePhoto(line);
             return (
@@ -190,7 +183,7 @@ export function OrderSheet() {
             {unknown.length > 0 ? <p className="mt-2 text-sm text-gold-soft">{t("unknownNote")}</p> : null}
           </div>
 
-          <div className="rounded-[2rem] bg-surface p-5 ring-1 ring-border">
+          <div className="rounded-[2rem] bg-surface p-5 shadow-lg shadow-[#7b2a3a]/5 ring-1 ring-border">
             <p className="text-sm font-extrabold text-muted">{t("messagePreview")}</p>
             <p className="mt-3 max-h-56 overflow-auto whitespace-pre-line rounded-2xl rounded-tr-sm bg-[#dcf8c6] px-4 py-3 text-sm leading-relaxed text-[#1b2a1b]">
               {message}

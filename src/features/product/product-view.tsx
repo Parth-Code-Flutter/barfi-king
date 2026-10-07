@@ -31,7 +31,7 @@ export function ProductView({ product }: { product: Product }) {
         <span className="truncate text-foreground">{product.name[lang]}</span>
       </nav>
 
-      <div className="mt-4 overflow-hidden rounded-[2rem] bg-surface ring-1 ring-border lg:grid lg:grid-cols-[minmax(22rem,0.9fr)_1.1fr]">
+      <div className="mt-4 overflow-hidden rounded-[2rem] bg-surface shadow-xl shadow-[#7b2a3a]/5 ring-1 ring-border lg:grid lg:grid-cols-[minmax(22rem,0.9fr)_1.1fr]">
         <div className="relative min-h-[20rem] bg-accent md:min-h-[28rem]">
           {category ? (
             <Image
@@ -96,7 +96,7 @@ export function ProductView({ product }: { product: Product }) {
       </div>
 
       {related.length > 0 ? (
-        <section className="mt-10 rounded-[2rem] bg-surface/60 p-4 ring-1 ring-border sm:p-6 md:p-8">
+        <section className="mt-10 rounded-[2rem] bg-surface/70 p-4 shadow-lg shadow-[#7b2a3a]/5 ring-1 ring-border sm:p-6 md:p-8">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="text-sm font-extrabold text-gold">{category ? text(category.name) : t("shop")}</p>

@@ -49,7 +49,7 @@ export function ContactPage() {
         <PlaceCard place={siteConfig.makerPlace} role={t("makerRole")} tagline={t("makerTagline")} />
       </div>
 
-      <section className="mt-8 rounded-[2rem] bg-surface p-6 ring-1 ring-border md:p-8">
+      <section className="mt-8 rounded-[2rem] bg-surface p-6 shadow-lg shadow-[#7b2a3a]/5 ring-1 ring-border md:p-8">
         <h2 className="text-3xl font-extrabold">{t("orderTitle")}</h2>
         <ol className="mt-5 grid gap-4 sm:grid-cols-3">
           {steps.map((step, index) => (
@@ -74,7 +74,7 @@ function PlaceCard({ place, role, tagline }: { place: Place; role: string; tagli
   const { t, text } = useLanguage();
 
   return (
-    <article className="flex flex-col overflow-clip rounded-[2rem] bg-surface ring-1 ring-border">
+    <article className="flex flex-col overflow-clip rounded-[2rem] bg-surface shadow-lg shadow-[#7b2a3a]/5 ring-1 ring-border">
       <iframe
         src={mapEmbedSrc(place)}
         title={`${t("mapTitle")}: ${text(place.name)}`}

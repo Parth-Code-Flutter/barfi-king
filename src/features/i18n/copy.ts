@@ -124,6 +124,11 @@ export type Copy = {
   announcementFresh: string;
   announcementOrder: string;
   announcementJunagadh: string;
+  customQuantity: string;
+  grams: string;
+  packets: string;
+  shopEyebrow: string;
+  priceFirst: string;
 };
 
 export const copy: Record<Lang, Copy> = {
@@ -251,6 +256,11 @@ export const copy: Record<Lang, Copy> = {
     announcementFresh: "1955થી પરંપરાગત સ્વાદ",
     announcementOrder: "ફોન અને વોટ્સએપથી સરળ ઓર્ડર",
     announcementJunagadh: "જૂનાગઢમાં આપનું સ્વાગત છે",
+    customQuantity: "મનપસંદ માત્રા",
+    grams: "ગ્રામ",
+    packets: "પેકેટ",
+    shopEyebrow: "બાર્ફી કિંગ કલેક્શન",
+    priceFirst: "ભાવ પહેલાં જુઓ",
   },
   en: {
     home: "Home",
@@ -376,5 +386,10 @@ export const copy: Record<Lang, Copy> = {
     announcementFresh: "Traditional taste since 1955",
     announcementOrder: "Easy ordering by phone and WhatsApp",
     announcementJunagadh: "Welcome to Junagadh",
+    customQuantity: "Custom quantity",
+    grams: "grams",
+    packets: "packets",
+    shopEyebrow: "The Barfi King collection",
+    priceFirst: "Clear prices first",
   },
 };

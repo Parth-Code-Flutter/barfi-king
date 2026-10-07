@@ -5,11 +5,10 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CloseIcon, SearchIcon } from "@/components/icons";
 import { PortionPicker } from "@/components/portion-picker";
-import { categories, filterProducts } from "@/features/catalog/data";
+import { categories, filterProducts, products } from "@/features/catalog/data";
 import { inr } from "@/features/catalog/format";
 import type { Category, CategoryId, Product } from "@/features/catalog/types";
 import { useLanguage } from "@/features/i18n/language-provider";
-import { useOrder, type Audience } from "@/features/order/order-provider";
 
 export function ShopBrowser() {
   const { t, text } = useLanguage();
@@ -54,15 +53,25 @@ export function ShopBrowser() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 pb-12 pt-6">
-      <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
-        <div>
-          <h1 className="text-4xl font-extrabold md:text-5xl">{t("shopTitle")}</h1>
-          <p className="mt-2 text-lg text-muted">{t("tapToAdd")}</p>
+      <section className="shop-hero relative overflow-hidden rounded-[2rem] px-5 py-7 text-white shadow-xl sm:px-8 sm:py-9 md:grid md:grid-cols-[1fr_22rem] md:items-center md:gap-8 lg:px-10">
+        <div className="relative z-10">
+          <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[#f7d77d]">{t("shopEyebrow")}</p>
+          <h1 className="mt-2 text-4xl font-extrabold leading-tight md:text-6xl">{t("shopTitle")}</h1>
+          <p className="mt-3 max-w-2xl text-base font-semibold leading-7 text-white/80 md:text-lg">{t("tapToAdd")}</p>
+          <div className="mt-5 flex flex-wrap gap-2 text-sm font-extrabold">
+            <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5">{products.length}+ {t("varieties")}</span>
+            <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5">{t("customQuantity")}</span>
+            <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5">{t("priceFirst")}</span>
+          </div>
         </div>
-        <AudienceSwitch />
-      </div>
+        <div className="relative mt-7 h-28 md:mt-0 md:h-40">
+          {categories.slice(0, 3).map((category, index) => (
+            <Image key={category.id} src={category.photo} alt="" width={220} height={220} className={`absolute top-1/2 aspect-square h-24 w-24 -translate-y-1/2 rounded-full object-cover shadow-2xl ring-4 ring-white/20 md:h-32 md:w-32 ${index === 0 ? "left-0 rotate-[-8deg]" : index === 1 ? "left-1/2 z-10 -translate-x-1/2" : "right-0 rotate-[8deg]"}`} />
+          ))}
+        </div>
+      </section>
 
-      <div className="relative mt-5">
+      <div className="relative z-10 mx-3 -mt-5 shadow-xl sm:mx-6">
         <label htmlFor="goods-search" className="sr-only">
           {t("searchLabel")}
         </label>
@@ -73,7 +82,7 @@ export function ShopBrowser() {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder={t("searchPlaceholder")}
-          className="w-full rounded-full border border-border bg-surface py-3.5 pl-12 pr-12 text-lg outline-none focus:border-gold"
+          className="w-full rounded-full border border-border bg-surface py-4 pl-12 pr-12 text-lg outline-none focus:border-rose focus:ring-2 focus:ring-rose/15"
         />
         {query ? (
           <button
@@ -87,7 +96,7 @@ export function ShopBrowser() {
         ) : null}
       </div>
 
-      <div className="sticky top-[69px] z-20 -mx-4 mt-4 bg-background/95 px-4 py-3 backdrop-blur">
+      <div className="sticky top-[91px] z-20 -mx-4 mt-4 bg-background/95 px-4 py-3 backdrop-blur">
         <div ref={barRef} className="no-scrollbar flex gap-2 overflow-x-auto" role="group" aria-label={t("categoriesTitle")}>
           {groups.map(({ category }) => {
             const on = category.id === active;
@@ -138,37 +147,6 @@ export function ShopBrowser() {
   );
 }
 
-function AudienceSwitch() {
-  const { t } = useLanguage();
-  const { audience, setAudience } = useOrder();
-  const options: { id: Audience; label: string; hint: string }[] = [
-    { id: "home", label: t("forHome"), hint: t("homeHint") },
-    { id: "trade", label: t("forShop"), hint: t("shopHint") },
-  ];
-
-  return (
-    <div className="grid grid-cols-2 gap-1 rounded-[1.4rem] bg-surface p-1 ring-1 ring-border lg:w-[26rem]" role="group">
-      {options.map((option) => {
-        const on = audience === option.id;
-        return (
-          <button
-            key={option.id}
-            type="button"
-            aria-pressed={on}
-            onClick={() => setAudience(option.id)}
-            className={`rounded-[1.1rem] px-3 py-2.5 text-center leading-tight transition ${
-              on ? "bg-accent text-accent-foreground shadow" : "text-foreground hover:bg-background"
-            }`}
-          >
-            <span className="block text-lg font-extrabold">{option.label}</span>
-            <span className={`block text-xs font-bold ${on ? "text-gold-soft" : "text-muted"}`}>{option.hint}</span>
-          </button>
-        );
-      })}
-    </div>
-  );
-}
-
 function CategoryTray({ category, items }: { category: Category; items: Product[] }) {
   const { t, text } = useLanguage();
   const prices = items.map((item) => item.price).filter((price) => price != null);
@@ -178,37 +156,32 @@ function CategoryTray({ category, items }: { category: Category; items: Product[
 
   return (
     <section id={category.id} className="scroll-mt-40" aria-labelledby={`${category.id}-title`}>
-      <div className="overflow-clip rounded-[2rem] bg-surface ring-1 ring-border md:grid md:grid-cols-[15rem_1fr] lg:grid-cols-[18rem_1fr]">
-        <header className="tray rounded-[2rem]">
-          <div className="flex items-center gap-4 p-5 md:sticky md:top-40 md:flex-col md:items-start md:p-7">
-            <Image
-              src={category.photo}
-              alt=""
-              width={320}
-              height={320}
-              className="h-24 w-24 shrink-0 rounded-full object-cover ring-[5px] ring-gold-soft md:h-40 md:w-40"
-            />
-            <div className="min-w-0">
-              <p className="text-xs font-extrabold text-gold-soft">
+      <div className="overflow-clip rounded-[2rem] bg-surface shadow-lg shadow-[#7b2a3a]/5 ring-1 ring-border">
+        <header className="relative min-h-56 overflow-hidden text-white md:min-h-64">
+          <Image src={category.photo} alt="" fill sizes="(max-width: 768px) 100vw, 72rem" className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#421724] via-[#741d39]/90 to-[#9f2449]/20" />
+          <div className="relative flex min-h-56 items-end p-5 md:min-h-64 md:p-8">
+            <div className="max-w-2xl">
+              <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[#f7d77d]">
                 {items.length} {t("results")}
               </p>
-              <h2 id={`${category.id}-title`} className="text-3xl font-extrabold leading-tight">
+              <h2 id={`${category.id}-title`} className="mt-1 text-4xl font-extrabold leading-tight md:text-6xl">
                 {text(category.name)}
               </h2>
-              <p className="mt-1 text-sm leading-relaxed text-gold-soft">{text(category.promise)}</p>
+              <p className="mt-2 max-w-xl text-sm font-semibold leading-relaxed text-white/80 md:text-base">{text(category.promise)}</p>
               {low != null && high != null ? (
-                <p className="mt-2 inline-block rounded-full bg-gold-soft px-3 py-1 text-sm font-extrabold text-accent">
+                <p className="mt-4 inline-block rounded-full bg-[#f7d77d] px-4 py-2 text-sm font-extrabold text-[#59290f] shadow-lg">
                   {low === high ? inr(low) : `${inr(low)} – ${inr(high)}`} · {unit}
                 </p>
               ) : null}
-              {category.id === "farsan" ? <p className="mt-2 text-sm font-bold text-gold-soft">{t("farsanNote")}</p> : null}
+              {category.id === "farsan" ? <p className="mt-2 text-sm font-bold text-[#f7d77d]">{t("farsanNote")}</p> : null}
             </div>
           </div>
         </header>
 
-        <ul className="divide-y divide-dashed divide-border">
-          {items.map((product) => (
-            <RateRow key={product.slug} product={product} />
+        <ul className="grid gap-3 p-3 md:grid-cols-2 md:gap-4 md:p-5">
+          {items.map((product, index) => (
+            <RateRow key={product.slug} product={product} index={index + 1} />
           ))}
         </ul>
       </div>
@@ -216,19 +189,20 @@ function CategoryTray({ category, items }: { category: Category; items: Product[
   );
 }
 
-function RateRow({ product }: { product: Product }) {
+function RateRow({ product, index }: { product: Product; index: number }) {
   const { lang, t } = useLanguage();
   const other = lang === "gu" ? "en" : "gu";
 
   return (
-    <li className="grid gap-3 px-4 py-4 sm:grid-cols-[1fr_19.5rem] sm:items-center sm:gap-6 md:px-6">
-      <div className="min-w-0">
-        <div className="flex items-baseline gap-2">
-          <Link href={`/product/${product.slug}`} className="min-w-0 text-xl font-extrabold leading-tight hover:text-accent">
-            {product.name[lang]}
-          </Link>
-          <span className="leader" aria-hidden="true" />
-          <span className="shrink-0 text-lg font-extrabold text-accent">
+    <li className="group relative flex flex-col overflow-hidden rounded-[1.5rem] bg-[#fffdfa] p-4 shadow-sm ring-1 ring-border transition hover:-translate-y-1 hover:shadow-xl">
+      <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#71363d] via-rose-deep to-rose" />
+      <div className="min-w-0 flex-1">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex min-w-0 gap-3">
+            <span className="mt-0.5 text-xs font-extrabold tracking-widest text-rose/60">{String(index).padStart(2, "0")}</span>
+            <Link href={`/product/${product.slug}`} className="min-w-0 text-xl font-extrabold leading-tight transition group-hover:text-rose-deep">{product.name[lang]}</Link>
+          </div>
+          <span className="shrink-0 rounded-full bg-gold-soft px-3 py-1 text-base font-extrabold text-accent">
             {product.price == null ? (
               <span className="text-sm">{t("priceOnCall")}</span>
             ) : (
@@ -247,7 +221,7 @@ function RateRow({ product }: { product: Product }) {
           ) : null}
         </p>
       </div>
-      <PortionPicker product={product} />
+      <div className="mt-4 border-t border-dashed border-border pt-4"><PortionPicker product={product} /></div>
     </li>
   );
 }

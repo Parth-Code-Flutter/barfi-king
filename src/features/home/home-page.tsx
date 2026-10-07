@@ -36,7 +36,7 @@ export function HomePage() {
             <div className="relative mx-auto min-h-[22rem] w-full max-w-[31rem] sm:min-h-[28rem]">
               <div className="absolute right-0 top-0 h-[78%] w-[76%] overflow-hidden rounded-[2rem] border-4 border-white/10 shadow-2xl">
                 <Image src="/sweets/peda.jpg" alt={t("heroImageAlt")} fill priority sizes="(max-width: 768px) 70vw, 36vw" className="object-cover" />
-                <div className="absolute left-3 top-3 max-w-[calc(100%-1.5rem)] rounded-2xl bg-[#3f180f]/90 px-3 py-2 text-white shadow-lg backdrop-blur-sm sm:left-4 sm:top-4 sm:px-4 sm:py-3">
+                <div className="absolute left-3 top-3 max-w-[calc(100%-1.5rem)] rounded-2xl bg-rose-deep/95 px-3 py-2 text-white shadow-lg backdrop-blur-sm sm:left-4 sm:top-4 sm:px-4 sm:py-3">
                   <p className="text-xs font-extrabold leading-snug sm:text-base">{t("signatureThabdi")}</p>
                   <p className="mt-0.5 hidden text-xs font-bold text-white/75 sm:block">{t("madeFresh")}</p>
                 </div>
@@ -69,7 +69,7 @@ export function HomePage() {
         <Link href="/shop" className="mt-5 block rounded-full bg-accent px-6 py-3.5 text-center text-lg font-extrabold text-accent-foreground sm:hidden">{t("seeAll")} →</Link>
       </section>
 
-      <section className="bg-[#fff8ed] py-12 sm:py-16">
+      <section className="favourites-section border-y border-border py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4">
           <div className="max-w-2xl"><p className="section-kicker">{t("customerFavourites")}</p><h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">{t("famousTitle")}</h2><p className="mt-2 text-muted">{t("famousHint")}</p></div>
           <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

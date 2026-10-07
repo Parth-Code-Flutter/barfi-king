@@ -8,8 +8,8 @@ import { useOrder } from "@/features/order/order-provider";
 
 export function BuyBox({ product, inline = false }: { product: Product; inline?: boolean }) {
   const { lang, t } = useLanguage();
-  const { audience, lines, addLine } = useOrder();
-  const choices = portions(product, audience);
+  const { lines, addLine } = useOrder();
+  const choices = portions(product, "home");
   const preferred = choices.find((item) => item.id === "500g" || item.id === "pack-1" || item.id === "1kg");
   const [choiceId, setChoiceId] = useState(preferred?.id ?? choices[0]?.id ?? "");
   const [justAdded, setJustAdded] = useState(false);
