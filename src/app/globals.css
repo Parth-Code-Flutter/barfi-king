@@ -1,18 +1,24 @@
 @import "tailwindcss";
 
+/* Malai & kesar: milk-white counter, saffron voice, butter highlights, pista accents, thabdi-brown ink. */
 :root {
-  --background: #f6e7cf;
-  --foreground: #2c2118;
+  --background: #fff8ec;
+  --foreground: #3b2213;
   --surface: #fffdf8;
-  --muted: #7d6a58;
-  --border: #ead9c4;
-  --accent: #8a4518;
-  --accent-foreground: #fff8ef;
-  --gold: #a56b12;
-  --gold-soft: #f3e3bf;
-  --rose: #bd2850;
-  --rose-deep: #881b3a;
-  --rose-soft: #f9e5e9;
+  --muted: #86684f;
+  --border: #f0dcbd;
+  --accent: #b4521a;
+  --accent-foreground: #fffaf2;
+  --kesar: #e2731e;
+  --kesar-soft: #fde6cf;
+  --butter: #f6d77d;
+  --butter-soft: #fdf1cc;
+  --pista: #7a9a3a;
+  --pista-deep: #4f6b1f;
+  --pista-soft: #ecf2da;
+  --thabdi: #5a2e14;
+  --thabdi-deep: #3a1d0d;
+  --header-h: 92px;
 }
 
 @theme inline {
@@ -23,12 +29,18 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-gold: var(--gold);
-  --color-gold-soft: var(--gold-soft);
-  --color-rose: var(--rose);
-  --color-rose-deep: var(--rose-deep);
-  --color-rose-soft: var(--rose-soft);
+  --color-kesar: var(--kesar);
+  --color-kesar-soft: var(--kesar-soft);
+  --color-butter: var(--butter);
+  --color-butter-soft: var(--butter-soft);
+  --color-pista: var(--pista);
+  --color-pista-deep: var(--pista-deep);
+  --color-pista-soft: var(--pista-soft);
+  --color-thabdi: var(--thabdi);
+  --color-thabdi-deep: var(--thabdi-deep);
+  --color-whatsapp: #1e8e4e;
   --font-sans: var(--font-gujarati), "Noto Sans Gujarati", sans-serif;
+  --font-display: var(--font-baloo), var(--font-gujarati), "Noto Sans Gujarati", sans-serif;
 }
 
 body {
@@ -38,84 +50,119 @@ body {
   font-weight: 500;
 }
 
-.hero-panel {
-  background:
-    radial-gradient(circle at 82% 8%, rgb(247 215 125 / 0.22), transparent 30%),
-    radial-gradient(circle at 5% 90%, rgb(224 58 98 / 0.27), transparent 34%),
-    linear-gradient(135deg, #43160f 0%, #7f252d 55%, #b82b50 100%);
-}
-
-.hero-panel::before {
-  position: absolute;
-  inset: 0;
-  content: "";
-  opacity: 0.1;
-  background-image: radial-gradient(circle, #fff 1px, transparent 1px);
-  background-size: 22px 22px;
-}
-
-.visit-panel {
-  background:
-    radial-gradient(circle at 12% 10%, rgb(247 215 125 / 0.2), transparent 32%),
-    linear-gradient(115deg, #571729, var(--rose-deep) 58%, var(--rose));
-}
-
-.favourites-section {
-  background:
-    radial-gradient(circle at 92% 12%, rgb(189 40 80 / 0.09), transparent 27rem),
-    radial-gradient(circle at 5% 100%, rgb(247 215 125 / 0.18), transparent 24rem),
-    #fff9f0;
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
 }
 
 .section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   color: var(--accent);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 800;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-@keyframes announcement-scroll {
-  to { transform: translateX(-50%); }
-}
-
-.announcement-track { animation: announcement-scroll 24s linear infinite; }
-
-/* Kesar tray: the brown panel with a thin gold inner border, like the shop's rate card. */
-.tray {
-  background:
-    radial-gradient(circle at 12% 0%, rgb(247 215 125 / 0.18), transparent 42%),
-    linear-gradient(120deg, #71363d 0%, var(--rose-deep) 52%, var(--rose) 100%);
-  color: var(--accent-foreground);
-  box-shadow:
-    inset 0 0 0 1px rgb(247 215 125 / 0.42),
-    inset 0 0 0 7px rgb(113 54 61 / 0.2),
-    inset 0 0 0 8px rgb(247 215 125 / 0.22);
-}
-
-.brand-gradient {
-  background:
-    radial-gradient(circle at 12% 0%, rgb(247 215 125 / 0.18), transparent 38%),
-    linear-gradient(115deg, #71363d, var(--rose-deep) 58%, var(--rose));
-}
-
-.shop-hero {
-  background:
-    radial-gradient(circle at 88% 10%, rgb(247 215 125 / 0.16), transparent 25rem),
-    linear-gradient(115deg, #421724 0%, #7f1f3e 58%, #bd2850 100%);
-}
-
-.shop-hero::after {
-  position: absolute;
-  inset: 0;
+/* A single saffron strand before every kicker. */
+.section-kicker::before {
+  width: 1.4rem;
+  height: 3px;
+  border-radius: 3px;
   content: "";
-  pointer-events: none;
-  opacity: 0.09;
-  background-image: radial-gradient(circle, #fff 1px, transparent 1px);
-  background-size: 20px 20px;
+  background: linear-gradient(90deg, #c2410c, var(--kesar) 60%, #f59e0b);
+  transform: rotate(-12deg);
 }
 
-/* Dotted leader between an item name and its price, as on a printed menu. */
+/* Malai pouring over an edge. Put it straight after a block, coloured like that block. */
+.drip {
+  height: 3rem;
+  margin-top: -1px;
+  background: var(--drip, var(--surface));
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 48'><path d='M0 0H240V14C228 14 226 18 224 24C222 34 214 34 213 24C212 17 205 15 196 16C184 17 180 20 178 28C176 42 166 42 165 30C164 21 158 17 146 17C132 17 126 19 124 22C122 26 118 26 116 22C112 15 100 14 88 15C76 16 72 20 70 30C68 44 56 44 56 32C56 22 50 17 38 16C26 15 20 17 18 20C16 24 12 24 10 20C8 15 4 14 0 14Z'/></svg>") repeat-x 0 0 / 15rem 3rem;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 48'><path d='M0 0H240V14C228 14 226 18 224 24C222 34 214 34 213 24C212 17 205 15 196 16C184 17 180 20 178 28C176 42 166 42 165 30C164 21 158 17 146 17C132 17 126 19 124 22C122 26 118 26 116 22C112 15 100 14 88 15C76 16 72 20 70 30C68 44 56 44 56 32C56 22 50 17 38 16C26 15 20 17 18 20C16 24 12 24 10 20C8 15 4 14 0 14Z'/></svg>") repeat-x 0 0 / 15rem 3rem;
+}
+
+.drip-up {
+  margin-top: 0;
+  margin-bottom: -1px;
+  transform: scaleY(-1);
+}
+
+/* Scattered saffron strands, for milk-white panels. */
+.kesar-strands {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'><g stroke-linecap='round' fill='none'><path d='M20 30q8 4 14 14' stroke='%23e2731e' stroke-width='2.2' opacity='.55'/><path d='M120 18q-6 9-4 18' stroke='%23c2410c' stroke-width='2' opacity='.45'/><path d='M150 110q-10 2-16 10' stroke='%23e2731e' stroke-width='2.2' opacity='.5'/><path d='M60 140q6-8 16-9' stroke='%23c2410c' stroke-width='2' opacity='.4'/><path d='M92 86q3 8 0 15' stroke='%237a9a3a' stroke-width='3' opacity='.35'/><path d='M30 96q7-1 11 4' stroke='%237a9a3a' stroke-width='3' opacity='.3'/></g></svg>");
+  background-size: 180px 180px;
+}
+
+/* Printed receipt: zigzag tear at top and bottom. */
+.receipt {
+  -webkit-mask:
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / 18px 51% repeat-x,
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 18px 51% repeat-x;
+  mask:
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / 18px 51% repeat-x,
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 18px 51% repeat-x;
+}
+
+/* Pleated butter-paper cup that holds one sweet. */
+.paper-cup {
+  background:
+    radial-gradient(circle, transparent 54%, rgb(90 46 20 / 0.1) 55% 57%, transparent 58%),
+    repeating-conic-gradient(from 0deg, #fffaf0 0 6deg, #f3e3c4 6deg 12deg);
+  box-shadow: inset 0 2px 6px rgb(90 46 20 / 0.18);
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.spin-slow {
+  animation: spin-slow 28s linear infinite;
+}
+
+@keyframes float-y {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.float-y {
+  animation: float-y 5s ease-in-out infinite;
+}
+
+/* Soft rise as a block enters the screen; toggled by <Reveal>. */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 600ms ease,
+    transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--delay, 0ms);
+}
+
+.reveal[data-shown] {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes announcement-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.announcement-track {
+  animation: announcement-scroll 26s linear infinite;
+}
+
+/* Dotted leader between an item name and its price, as on a printed bill. */
 .leader {
   flex: 1;
   min-width: 1.5rem;
@@ -149,8 +196,22 @@ body {
   animation: bump 260ms ease-out;
 }
 
+@keyframes plop {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(4px) scale(1.06);
+  }
+}
+.plop {
+  animation: plop 420ms cubic-bezier(0.3, 0.8, 0.3, 1.2);
+}
+
 :focus-visible {
-  outline: 3px solid var(--gold);
+  outline: 3px solid var(--kesar);
   outline-offset: 3px;
 }
 
@@ -161,5 +222,10 @@ body {
     scroll-behavior: auto !important;
     transition: none !important;
     animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
   }
 }

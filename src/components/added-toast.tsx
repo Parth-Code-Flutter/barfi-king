@@ -26,24 +26,24 @@ export function AddedToast() {
     <div
       role="status"
       aria-live="polite"
-      className="toast-in fixed inset-x-3 bottom-24 z-50 mx-auto flex max-w-md items-center gap-3 rounded-2xl bg-foreground px-4 py-3 text-accent-foreground shadow-2xl md:bottom-6"
+      className="toast-in fixed inset-x-3 bottom-24 z-50 mx-auto flex max-w-md items-center gap-3 rounded-2xl bg-thabdi-deep px-4 py-3 text-butter-soft shadow-2xl ring-1 ring-butter/20 md:bottom-6"
     >
-      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-gold text-white">
+      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-pista text-white">
         <CheckIcon className="h-4 w-4" />
       </span>
       <span className="min-w-0 flex-1 leading-tight">
-        <span className="block text-xs text-gold-soft">{t("addedToOrder")}</span>
-        <span className="block truncate font-extrabold">
+        <span className="block text-xs text-butter/80">{t("addedToOrder")}</span>
+        <span className="block truncate font-extrabold text-white">
           {lastAdded.name[lang]} · {lastAdded.qty[lang]}
         </span>
       </span>
-      <button type="button" onClick={undoLast} className="shrink-0 rounded-full px-3 py-2 text-sm font-bold text-gold-soft">
+      <button type="button" onClick={undoLast} className="shrink-0 rounded-full px-3 py-2 text-sm font-bold text-butter/90 hover:bg-white/10">
         {t("undo")}
       </button>
       <Link
         href="/order"
         onClick={dismissLast}
-        className="shrink-0 rounded-full bg-gold-soft px-3 py-2 text-sm font-extrabold text-accent"
+        className="shrink-0 rounded-full bg-butter px-3 py-2 text-sm font-extrabold text-thabdi"
       >
         {t("viewOrder")}
       </Link>

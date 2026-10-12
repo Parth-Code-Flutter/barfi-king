@@ -17,6 +17,15 @@ const gujarati = localFont({
   display: "swap",
 });
 
+const display = localFont({
+  src: [
+    { path: "./fonts/baloo-bhai-2-gujarati.woff2", weight: "500 800" },
+    { path: "./fonts/baloo-bhai-2-latin.woff2", weight: "500 800" },
+  ],
+  variable: "--font-baloo",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
     default: "બાર્ફી કિંગ · જલારામ સ્વીટ્સ",
@@ -29,7 +38,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="gu" className={`${gujarati.variable} h-full antialiased`} suppressHydrationWarning>
+    <html lang="gu" className={`${gujarati.variable} ${display.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="flex min-h-full flex-col pb-24 md:pb-0" suppressHydrationWarning>
         <LanguageProvider>
           <OrderProvider>
