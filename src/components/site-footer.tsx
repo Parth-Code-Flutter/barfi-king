@@ -13,7 +13,7 @@ export function SiteFooter() {
   return (
     <footer className="relative mt-6 overflow-hidden bg-thabdi-deep text-butter-soft">
       <Drip color="var(--background)" />
-      <span aria-hidden="true" className="pointer-events-none absolute -bottom-10 right-[-2rem] select-none font-display text-[11rem] font-extrabold leading-none text-white/[0.04] md:text-[16rem]">
+      <span aria-hidden="true" className="pointer-events-none absolute -bottom-10 right-0 select-none font-display text-[11rem] font-extrabold leading-none text-white/[0.04] sm:right-[-2rem] md:text-[16rem]">
         {siteConfig.since}
       </span>
       <div className="relative mx-auto max-w-6xl px-4 pb-10 pt-6">

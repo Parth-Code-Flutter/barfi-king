@@ -37,11 +37,11 @@ export function ProductView({ product }: { product: Product }) {
       </nav>
 
       <div className="mt-4 grid items-start gap-6 lg:grid-cols-[1fr_1.05fr] lg:gap-10">
-        <div className="kesar-strands rounded-[2.2rem] bg-butter-soft px-5 pb-6 pt-8 ring-1 ring-butter sm:px-8 lg:sticky lg:top-[calc(var(--header-h)+1rem)]">
+        <div className="kesar-strands min-w-0 rounded-[2.2rem] bg-butter-soft px-5 pb-6 pt-8 ring-1 ring-butter sm:px-8 lg:sticky lg:top-[calc(var(--header-h)+1rem)]">
           <CounterScale product={product} choice={choice} photo={category?.photo ?? "/sweets/peda.jpg"} />
         </div>
 
-        <div className="flex flex-col lg:pt-4">
+        <div className="min-w-0 flex flex-col lg:pt-4">
           <div className="flex flex-wrap items-center gap-2">
             {category ? (
               <Link href={`/shop#${product.category}`} className="rounded-full bg-kesar-soft px-3 py-1 text-sm font-extrabold text-accent">

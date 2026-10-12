@@ -192,7 +192,7 @@ export function ShopBrowser() {
                     role="radio"
                     aria-checked={sort === mode}
                     onClick={() => setSort(mode)}
-                    className={`rounded-full px-3 py-1.5 text-xs font-extrabold transition sm:text-sm ${
+                    className={`min-h-10 rounded-full px-3 py-1.5 text-xs font-extrabold transition sm:text-sm ${
                       sort === mode ? "bg-thabdi text-butter-soft" : "text-muted hover:text-thabdi"
                     }`}
                   >

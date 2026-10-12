@@ -117,8 +117,8 @@ export function BoxBuilder() {
         <p className="mt-3 text-lg text-muted">{text(builderCopy.hint)}</p>
       </div>
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_28rem] lg:items-start xl:grid-cols-[1fr_31rem]">
-        <div ref={boxRef} className="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)] lg:order-2">
+      <div className="mt-10 grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_28rem] lg:items-start xl:grid-cols-[minmax(0,1fr)_31rem]">
+        <div ref={boxRef} className="min-w-0 lg:sticky lg:top-[calc(var(--header-h)+1.5rem)] lg:order-2">
           <div className="relative mx-auto max-w-[26rem] pt-12">
             <div aria-hidden="true" className="absolute inset-x-5 top-0 h-20 -rotate-[5deg] rounded-t-[1.8rem] bg-kesar shadow-md">
               <span className="absolute inset-y-0 left-1/2 w-5 -translate-x-1/2 bg-butter" />
@@ -218,21 +218,22 @@ export function BoxBuilder() {
           </div>
         </div>
 
-        <div className="rounded-[2rem] bg-surface p-4 shadow-sm ring-1 ring-border sm:p-6 lg:order-1">
-          <div className="sticky top-(--header-h) z-10 -mx-4 -mt-4 mb-3 flex items-center gap-2 rounded-t-[2rem] bg-surface/95 px-4 py-2.5 sm:-mx-6 sm:-mt-6 sm:px-6 backdrop-blur lg:hidden">
+        <div className="min-w-0 rounded-[2rem] bg-surface p-4 shadow-sm ring-1 ring-border sm:p-6 lg:order-1">
+          <div className="sticky top-(--header-h) z-10 -mx-4 -mt-4 mb-3 flex min-w-0 items-center gap-1.5 rounded-t-[2rem] bg-surface/95 px-4 py-2.5 sm:-mx-6 sm:-mt-6 sm:gap-2 sm:px-6 backdrop-blur lg:hidden">
             <div className="flex -space-x-2">
               {cups.map((cup, index) => {
                 const product = chosen[index];
                 return product ? (
-                  <Image key={`cup-${cup?.drop}`} src={photoOf(product)} alt="" width={64} height={64} className="plop h-9 w-9 rounded-full object-cover ring-2 ring-surface" />
+                  <Image key={`cup-${cup?.drop}`} src={photoOf(product)} alt="" width={64} height={64} className="plop h-8 w-8 rounded-full object-cover ring-2 ring-surface sm:h-9 sm:w-9" />
                 ) : (
-                  <span key={`empty-${index}`} className="h-9 w-9 rounded-full border-2 border-dashed border-border bg-background" />
+                  <span key={`empty-${index}`} className="h-8 w-8 rounded-full border-2 border-dashed border-border bg-background sm:h-9 sm:w-9" />
                 );
               })}
             </div>
-            <p className="ml-auto font-display text-2xl font-extrabold text-accent">{inr(total)}</p>
-            <button type="button" onClick={() => boxRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })} className="rounded-full bg-accent px-3 py-1.5 text-sm font-extrabold text-accent-foreground">
-              ↑ {text(builderCopy.kicker)}
+            <p className="ml-auto shrink-0 font-display text-2xl font-extrabold text-accent">{inr(total)}</p>
+            <button type="button" aria-label={`↑ ${text(builderCopy.kicker)}`} onClick={() => boxRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })} className="min-h-10 shrink-0 rounded-full bg-accent px-3 py-1.5 text-sm font-extrabold text-accent-foreground">
+              <span className="sm:hidden">↑ {lang === "gu" ? "ડબ્બો" : "Box"}</span>
+              <span className="hidden sm:inline">↑ {text(builderCopy.kicker)}</span>
             </button>
           </div>
 

@@ -78,7 +78,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="whitespace-nowrap rounded-full bg-pista-soft px-3 py-2 text-xs font-extrabold text-pista-deep ring-1 ring-pista/25 transition hover:brightness-95"
+          className="inline-flex h-10 items-center whitespace-nowrap rounded-full bg-pista-soft px-3 text-xs font-extrabold text-pista-deep ring-1 ring-pista/25 transition hover:brightness-95"
           aria-label={t("languageName")}
           onClick={() => setLang(lang === "gu" ? "en" : "gu")}
         >
