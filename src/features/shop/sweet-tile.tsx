@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { CheckIcon, MinusIcon, PlusIcon } from "@/components/icons";
+import { getCategory } from "@/features/catalog/data";
 import { inr, portionAmount, portions } from "@/features/catalog/format";
-import { MithaiArt, mithaiTint } from "@/features/catalog/mithai-art";
 import type { Product } from "@/features/catalog/types";
 import { useLanguage } from "@/features/i18n/language-provider";
 import { useOrder } from "@/features/order/order-provider";
@@ -37,6 +38,7 @@ export function SweetTile({ product }: { product: Product }) {
   const inBox = lines.filter((line) => line.slug === product.slug).reduce((sum, line) => sum + line.count, 0);
   const name = text(product.name);
   const other = lang === "gu" ? product.name.en : product.name.gu;
+  const category = getCategory(product.category);
 
   const clamp = (value: number) => (Number.isFinite(value) ? Math.min(max, Math.max(min, Math.round(value))) : min);
   const valid = !isCustom || (Number.isFinite(custom) && custom >= min && custom <= max);
@@ -52,13 +54,17 @@ export function SweetTile({ product }: { product: Product }) {
         tabIndex={-1}
         aria-hidden="true"
         className="relative grid aspect-square place-items-center overflow-hidden rounded-2xl sm:aspect-[16/10] sm:rounded-none"
-        style={{ background: mithaiTint(product) }}
       >
-        <span className="absolute inset-x-6 bottom-2 h-6 rounded-full bg-thabdi/10 blur-md sm:bottom-4" />
-        <MithaiArt
-          product={product}
-          className="relative h-[92%] w-[92%] transition duration-300 group-hover:-translate-y-1 group-hover:-rotate-2 sm:h-[82%] sm:w-[82%]"
-        />
+        {category ? (
+          <Image
+            src={category.photo}
+            alt=""
+            fill
+            sizes="(max-width: 640px) 6.5rem, (max-width: 1024px) 50vw, 25rem"
+            className="object-cover transition duration-500 group-hover:scale-105"
+          />
+        ) : null}
+        <span aria-hidden="true" className="absolute inset-x-5 bottom-1 h-8 rounded-full bg-thabdi/20 blur-lg sm:bottom-3" />
         {product.sugarFree ? (
           <span className="absolute left-2 top-2 rounded-full bg-pista px-2 py-0.5 text-[11px] font-extrabold text-white sm:left-3 sm:top-3 sm:text-xs">
             {t("sugarFree")}
